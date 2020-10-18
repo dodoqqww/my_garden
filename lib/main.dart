@@ -12,7 +12,6 @@ import 'screens/catalog.dart';
 import 'screens/login.dart';
 
 void main() {
-  //dilo12
   runApp(MyApp());
 }
 
