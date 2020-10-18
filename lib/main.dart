@@ -7,9 +7,9 @@ import 'common/theme.dart';
 import 'generated/l10n.dart';
 import 'models/cart.dart';
 import 'models/catalog.dart';
-import 'screens/cart.dart';
-import 'screens/catalog.dart';
-import 'screens/login.dart';
+import 'ui/cart.dart';
+import 'ui/catalog.dart';
+import 'ui/login.dart';
 
 void main() {
   runApp(MyApp());
