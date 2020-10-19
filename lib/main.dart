@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_garden/ui/bottom_nav.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'common/theme.dart';
 import 'generated/l10n.dart';
-import 'models/cart.dart';
 import 'models/catalog.dart';
-import 'ui/cart.dart';
-import 'ui/catalog.dart';
-import 'ui/login.dart';
+import 'states/nav_bar_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,16 +27,22 @@ class MyApp extends StatelessWidget {
         // In this sample app, CatalogModel never changes, so a simple Provider
         // is sufficient.
         Provider(create: (context) => CatalogModel()),
+
+        ChangeNotifierProvider<AppBottomNavigationBarProvider>(
+            child: AppBottomNavigationBar(),
+            create: (BuildContext context) => AppBottomNavigationBarProvider()),
+
         // CartModel is implemented as a ChangeNotifier, which calls for the use
         // of ChangeNotifierProvider. Moreover, CartModel depends
         // on CatalogModel, so a ProxyProvider is needed.
-        ChangeNotifierProxyProvider<CatalogModel, CartModel>(
-          create: (context) => CartModel(),
-          update: (context, catalog, cart) {
-            cart.catalog = catalog;
-            return cart;
-          },
-        ),
+
+        //  ChangeNotifierProxyProvider<CatalogModel, CartModel>(
+        //    create: (context) => CartModel(),
+        //    update: (context, catalog, cart) {
+        //      cart.catalog = catalog;
+        //      return cart;
+        //    },
+        //  ),
       ],
       child: MaterialApp(
         // scale
@@ -64,9 +68,11 @@ class MyApp extends StatelessWidget {
         //routes
         initialRoute: '/',
         routes: {
-          '/': (context) => MyLogin(),
-          '/catalog': (context) => MyCatalog(),
-          '/cart': (context) => MyCart(),
+          '/': (context) => AppBottomNavigationBar(),
+
+          // '/home': (context) => HomePage(),
+          // '/garden': (context) => GardenPage(),
+          // '/settings': (context) => SettingsPage(),
         },
       ),
     );
