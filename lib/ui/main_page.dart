@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
       shrinkWrap: true,
-      children: [_RoleWidget()],
+      children: [_RoleWidget(), _MissedWidget()],
     );
   }
 }
@@ -38,6 +38,7 @@ class _RoleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("build home/role");
     return Card(
       elevation: 20,
       color: Colors.green,
@@ -56,7 +57,12 @@ class _RoleWidget extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   _roleText("asd"),
-                  _roleText("Nincs teendő a mai napra."),
+                  Center(
+                    child: Text(
+                      "Nincs teendő a mai napra.",
+                      style: appTextTheme.bodyText1,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -71,6 +77,73 @@ class _RoleWidget extends StatelessWidget {
       children: [
         Text(
           text,
+          style: appTextTheme.bodyText1,
+        ),
+        Spacer(),
+        Icon(Icons.arrow_right)
+      ],
+    );
+  }
+}
+
+class _MissedWidget extends StatelessWidget {
+  const _MissedWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print("build home/missed");
+    return Card(
+      elevation: 20,
+      color: Colors.green,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Elmaradt teendők:",
+              style: appTextTheme.headline2,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 10),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  _missedText("asd"),
+                  //   ExpansionTile(
+                  //     //backgroundColor: Colors.red,
+                  //     title: Text(
+                  //       "08.11 ads.",
+                  //       style: appTextTheme.bodyText1,
+                  //     ),
+                  //     children: <Widget>[
+                  //       Text(
+                  //         'Sub title',
+                  //       ),
+                  //     ],
+                  //   ),
+                  Center(
+                    child: Text(
+                      "Mindent elvégeztél.",
+                      style: appTextTheme.bodyText1,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _missedText(String text) {
+    return Row(
+      children: [
+        Text(
+          "08.11 " + text,
           style: appTextTheme.bodyText1,
         ),
         Spacer(),

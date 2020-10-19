@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 final appTheme = ThemeData(
-  primarySwatch: Colors.green,
-);
+    brightness: Brightness.light,
+    primarySwatch: Colors.green,
+    accentColor: Colors.greenAccent);
 
 final TextTheme appTextTheme = TextTheme(
   headline1: TextStyle(
@@ -19,7 +20,7 @@ final TextTheme appTextTheme = TextTheme(
   ),
   bodyText1: TextStyle(
     fontFamily: 'Corben',
-    fontWeight: FontWeight.bold,
+    //fontWeight: FontWeight.bold,
     fontSize: 16,
     color: Colors.black,
   ),

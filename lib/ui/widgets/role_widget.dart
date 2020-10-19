@@ -1,35 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_garden/common/theme.dart';
 
-import 'widgets/role_widget.dart';
-
-class HomeGarden extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-          padding: EdgeInsets.all(10),
-          shrinkWrap: true,
-          children: [RoleWidget(), _PlantsWidget()]),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          size: 32,
-        ),
-        onPressed: () => print("add teendő"),
-      ),
-    );
-  }
-}
-
-class _PlantsWidget extends StatelessWidget {
-  const _PlantsWidget({
+class RoleWidget extends StatelessWidget {
+  const RoleWidget({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("build homegarden/plants");
+    print("build homeg-somewhere/role");
     return Card(
       elevation: 20,
       color: Colors.green,
@@ -39,7 +18,7 @@ class _PlantsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Növények:",
+              "Teendők:",
               style: appTextTheme.headline2,
             ),
             Padding(
@@ -47,10 +26,10 @@ class _PlantsWidget extends StatelessWidget {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  _plantsText("asd"),
+                  _roleText("asd"),
                   Center(
                     child: Text(
-                      "Nincsenek növényeid.",
+                      "Nincs teendő a mai napra.",
                       style: appTextTheme.bodyText1,
                     ),
                   ),
@@ -63,7 +42,7 @@ class _PlantsWidget extends StatelessWidget {
     );
   }
 
-  Widget _plantsText(String text) {
+  Widget _roleText(String text) {
     return Row(
       children: [
         Text(
