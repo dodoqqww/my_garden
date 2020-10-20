@@ -1,6 +1,9 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/theme.dart';
+import 'widgets/add_widget.dart';
+import 'widgets/role_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,7 +19,12 @@ class HomePage extends StatelessWidget {
             Icons.add,
             size: 32,
           ),
-          onPressed: () => print("add teendő"),
+          onPressed: () => showMaterialModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            expand: true,
+            context: context,
+            builder: (context, scrollController) => BottomAddWidget(),
+          ),
         ),
       ),
     );
@@ -26,62 +34,7 @@ class HomePage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
       shrinkWrap: true,
-      children: [_RoleWidget(), _MissedWidget()],
-    );
-  }
-}
-
-class _RoleWidget extends StatelessWidget {
-  const _RoleWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    print("build home/role");
-    return Card(
-      elevation: 20,
-      color: Colors.green,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Teendők:",
-              style: appTextTheme.headline2,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 10),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  _roleText("asd"),
-                  Center(
-                    child: Text(
-                      "Nincs teendő a mai napra.",
-                      style: appTextTheme.bodyText1,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _roleText(String text) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: appTextTheme.bodyText1,
-        ),
-        Spacer(),
-        Icon(Icons.arrow_right)
-      ],
+      children: [RoleWidget(), _MissedWidget()],
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_garden/states/nav_bar_provider.dart';
+import 'package:my_garden/states/bottom_nav_state.dart';
 import 'garden_page.dart';
 import 'package:provider/provider.dart';
 import 'main_page.dart';

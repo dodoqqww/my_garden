@@ -12,17 +12,22 @@ class GardenPage extends StatelessWidget {
       child: DefaultTabController(
           length: 3,
           child: Scaffold(
-            appBar: AppBar(
-              title: Text('Garden', style: appTextTheme.headline1),
-              backgroundColor: Theme.of(context).primaryColor,
-              bottom: TabBar(
-                tabs: [
-                  Tab(icon: Icon(Icons.local_florist)),
-                  Tab(icon: Icon(Icons.wine_bar)),
-                  Tab(icon: Icon(Icons.agriculture)),
-                ],
-              ),
+            appBar:
+                //  AppBar(
+                // title: Text('Garden', style: appTextTheme.headline1),
+                //  backgroundColor: Theme.of(context).primaryColor,
+                //  bottom:
+                TabBar(
+              indicatorColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).primaryColor,
+              tabs: [
+                Tab(icon: Icon(Icons.local_florist)),
+                Tab(icon: Icon(Icons.wine_bar)),
+                Tab(icon: Icon(Icons.agriculture)),
+              ],
             ),
+            // ),
             body: TabBarView(
               children: [
                 HomeGarden(),

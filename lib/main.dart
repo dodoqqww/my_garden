@@ -7,7 +7,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'common/theme.dart';
 import 'generated/l10n.dart';
 import 'models/catalog.dart';
-import 'states/nav_bar_provider.dart';
+import 'states/bottom_nav_state.dart';
 
 void main() {
   runApp(MyApp());

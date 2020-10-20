@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/theme.dart';
 
 class RoleWidget extends StatelessWidget {
@@ -8,12 +9,12 @@ class RoleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("build homeg-somewhere/role");
+    print("build home-somewhere/role");
     return Card(
       elevation: 20,
       color: Colors.green,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -22,11 +23,11 @@ class RoleWidget extends StatelessWidget {
               style: appTextTheme.headline2,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 10),
+              padding: const EdgeInsets.only(left: 8.0),
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  _roleText("asd"),
+                  _roleText("asd", context),
                   Center(
                     child: Text(
                       "Nincs teendő a mai napra.",
@@ -42,7 +43,7 @@ class RoleWidget extends StatelessWidget {
     );
   }
 
-  Widget _roleText(String text) {
+  Widget _roleText(String text, BuildContext context) {
     return Row(
       children: [
         Text(
@@ -50,7 +51,15 @@ class RoleWidget extends StatelessWidget {
           style: appTextTheme.bodyText1,
         ),
         Spacer(),
-        Icon(Icons.arrow_right)
+        IconButton(
+          icon: Icon(Icons.arrow_right),
+          onPressed: () => showMaterialModalBottomSheet(
+            context: context,
+            builder: (context, scrollController) => Container(
+              child: Text("asd"),
+            ),
+          ),
+        )
       ],
     );
   }
