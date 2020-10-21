@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
       shrinkWrap: true,
-      children: [RoleWidget(), _MissedWidget()],
+      children: [RoleWidget(headlineText: "Minden teendő"), _MissedWidget()],
     );
   }
 }

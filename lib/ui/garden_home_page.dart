@@ -7,10 +7,10 @@ class HomeGarden extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-          padding: EdgeInsets.all(10),
-          shrinkWrap: true,
-          children: [RoleWidget(), _PlantsWidget()]),
+      body: ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
+        RoleWidget(headlineText: "Kerti teendők"),
+        _PlantsWidget()
+      ]),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,

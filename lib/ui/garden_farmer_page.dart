@@ -8,7 +8,7 @@ class FarmerGarden extends StatelessWidget {
       body: ListView(
           padding: EdgeInsets.all(10),
           shrinkWrap: true,
-          children: [RoleWidget()]),
+          children: [RoleWidget(headlineText: "Mezőgazdasági teendők")]),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,

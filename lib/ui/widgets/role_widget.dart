@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/ui/widgets/info_widget.dart';
 
 class RoleWidget extends StatelessWidget {
+  final String headlineText;
   const RoleWidget({
     Key key,
+    @required this.headlineText,
   }) : super(key: key);
 
   @override
@@ -19,7 +22,7 @@ class RoleWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Teendők:",
+              "$headlineText:",
               style: appTextTheme.headline2,
             ),
             Padding(
@@ -54,12 +57,14 @@ class RoleWidget extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.arrow_right),
           onPressed: () => showMaterialModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            expand: true,
             context: context,
-            builder: (context, scrollController) => Container(
-              child: Text("asd"),
+            builder: (context, scrollController) => BottomInfoWidget(
+              images: [],
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -8,7 +8,7 @@ class GrapeGarden extends StatelessWidget {
       body: ListView(
           padding: EdgeInsets.all(10),
           shrinkWrap: true,
-          children: [RoleWidget()]),
+          children: [RoleWidget(headlineText: "Szőlő gazdász teendők")]),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
