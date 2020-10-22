@@ -28,7 +28,7 @@ class ListWithSearch extends StatelessWidget {
             ),
             SearchWidget(),
             ListView(
-              padding: const EdgeInsets.only(left: 8.0, top: 10),
+              padding: const EdgeInsets.only(top: 10),
               shrinkWrap: true,
               children: [
                 _itemWidget("asd", context),
@@ -55,37 +55,36 @@ class ListWithSearch extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, "/info",
           arguments: InfoPageArguments(bodyWidget: resultWidget)),
       child: Card(
-          elevation: 5,
-          color: Colors.green,
-          child: SizedBox(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                simpleAppBorder(
-                    padding: 2,
-                    color: Colors.greenAccent,
-                    item: Container(
-                      height: 80,
-                      width: 80,
-                      color: Colors.green,
-                      child: Center(child: Text("N/A")),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Title",
-                        style: appTextTheme.headline1,
-                      ),
-                      Text("Subtitle"),
-                    ],
+        elevation: 5,
+        color: Colors.green[600],
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            simpleAppBorder(
+                padding: 2,
+                color: Colors.greenAccent,
+                item: Container(
+                  height: 80,
+                  width: 80,
+                  color: Colors.green,
+                  child: Center(child: Text("N/A")),
+                )),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Title",
+                    style: appTextTheme.headline1,
                   ),
-                ),
-              ],
+                  Text("Subtitle"),
+                ],
+              ),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 }
