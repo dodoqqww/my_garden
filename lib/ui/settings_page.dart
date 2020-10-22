@@ -7,19 +7,41 @@ class SettingsPage extends StatelessWidget {
     print("build settings");
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Settings', style: appTextTheme.headline1),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
+        // appBar: AppBar(
+        //   title: Text('Settings', style: appTextTheme.headline1),
+        //   backgroundColor: Theme.of(context).primaryColor,
+        // ),
         body: ListView(
+          padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
           children: [
-            SwitchListTile(
-              title: Text(
-                "Lorem Ipsum",
-                style: appTextTheme.bodyText1,
-              ),
-              value: true,
-              onChanged: (value) {},
+            Card(
+              elevation: 20,
+              color: Colors.green,
+              child: ListView(shrinkWrap: true, children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Beállítások:",
+                    style: appTextTheme.headline1,
+                  ),
+                ),
+                SwitchListTile(
+                  title: Text(
+                    "Lorem Ipsum",
+                    style: appTextTheme.bodyText1,
+                  ),
+                  value: true,
+                  onChanged: (value) {},
+                ),
+                SwitchListTile(
+                  title: Text(
+                    "Lorem Ipsum",
+                    style: appTextTheme.bodyText1,
+                  ),
+                  value: true,
+                  onChanged: (value) {},
+                ),
+              ]),
             )
           ],
         ),

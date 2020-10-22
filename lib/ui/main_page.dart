@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/theme.dart';
 import 'widgets/add_widget.dart';
+import 'widgets/info_widget.dart';
 import 'widgets/role_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,73 +35,9 @@ class HomePage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
       shrinkWrap: true,
-      children: [RoleWidget(headlineText: "Minden teendő"), _MissedWidget()],
-    );
-  }
-}
-
-class _MissedWidget extends StatelessWidget {
-  const _MissedWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    print("build home/missed");
-    return Card(
-      elevation: 20,
-      color: Colors.green,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Elmaradt teendők:",
-              style: appTextTheme.headline2,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 10),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  _missedText("asd"),
-                  //   ExpansionTile(
-                  //     //backgroundColor: Colors.red,
-                  //     title: Text(
-                  //       "08.11 ads.",
-                  //       style: appTextTheme.bodyText1,
-                  //     ),
-                  //     children: <Widget>[
-                  //       Text(
-                  //         'Sub title',
-                  //       ),
-                  //     ],
-                  //   ),
-                  Center(
-                    child: Text(
-                      "Mindent elvégeztél.",
-                      style: appTextTheme.bodyText1,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _missedText(String text) {
-    return Row(
       children: [
-        Text(
-          "08.11 " + text,
-          style: appTextTheme.bodyText1,
-        ),
-        Spacer(),
-        Icon(Icons.arrow_right)
+        RoleWidget(headlineText: "Minden teendő"),
+        RoleWidget(headlineText: "Elmaradt teendők")
       ],
     );
   }
