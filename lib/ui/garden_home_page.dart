@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 import 'widgets/listwithsearch_widget.dart';
+import 'widgets/note_widget.dart';
 import 'widgets/role_widget.dart';
 
 class HomeGarden extends StatelessWidget {
@@ -31,10 +33,28 @@ class HomeGarden extends StatelessWidget {
 class _InfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(10),
-      shrinkWrap: true,
-      children: [_headerCard(), _descCard(), _imagesCard([]), _settingsCard()],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Info"),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(10),
+        shrinkWrap: true,
+        children: [
+          _headerCard(),
+          _dataCard(context),
+          _descCard(context),
+          _imagesCard([]),
+          _settingsCard()
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          size: 32,
+        ),
+        onPressed: () => print("add note"),
+      ),
     );
   }
 
@@ -72,7 +92,63 @@ class _InfoWidget extends StatelessWidget {
     );
   }
 
-  Widget _descCard() {
+  Widget _dataCard(BuildContext context) {
+    return Card(
+        elevation: 5,
+        color: Colors.green,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Adatok:",
+                    style: appTextTheme.headline2,
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+              ListView(
+                padding: const EdgeInsets.only(top: 10),
+                shrinkWrap: true,
+                children: [
+                  simpleAppBorder(
+                      color: Colors.greenAccent,
+                      item: Text("Ültetve: ",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(color: Color(0xFF000000)))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  simpleAppBorder(
+                      color: Colors.greenAccent,
+                      item: Text("Utoljára öntözve: ",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(color: Color(0xFF000000)))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  simpleAppBorder(
+                      color: Colors.greenAccent,
+                      item: Text("Elhelyezkedés: ",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(color: Color(0xFF000000)))),
+                ],
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget _descCard(BuildContext context) {
     return Card(
         elevation: 5,
         color: Colors.green,
@@ -89,20 +165,31 @@ class _InfoWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10),
                 shrinkWrap: true,
                 children: [
-                  Card(
-                    elevation: 5,
-                    color: Colors.green[600],
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Jégeső után",
-                            style: appTextTheme.headline2,
-                          ),
-                          Text("2020.10.10"),
-                        ],
+                  InkWell(
+                    onTap: () => showMaterialModalBottomSheet(
+                      backgroundColor: Colors.transparent,
+                      expand: true,
+                      context: context,
+                      builder: (context, scrollController) => BottomNoteWidget(
+                        note: "Ez egy note.",
+                        images: [],
+                      ),
+                    ),
+                    child: Card(
+                      elevation: 5,
+                      color: Colors.green[600],
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Jégeső után",
+                              style: appTextTheme.headline2,
+                            ),
+                            Text("2020.10.10"),
+                          ],
+                        ),
                       ),
                     ),
                   ),
