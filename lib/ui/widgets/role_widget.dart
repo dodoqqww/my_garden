@@ -47,25 +47,35 @@ class RoleWidget extends StatelessWidget {
   }
 
   Widget _roleText(String text, BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: appTextTheme.bodyText1,
+    return InkWell(
+      onTap: () => showMaterialModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        expand: true,
+        context: context,
+        builder: (context, scrollController) => BottomInfoWidget(
+          images: [],
         ),
-        Spacer(),
-        IconButton(
-          icon: Icon(Icons.arrow_right),
-          onPressed: () => showMaterialModalBottomSheet(
-            backgroundColor: Colors.transparent,
-            expand: true,
-            context: context,
-            builder: (context, scrollController) => BottomInfoWidget(
-              images: [],
-            ),
+      ),
+      child: Card(
+        elevation: 5,
+        color: Colors.green[600],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                text,
+                style: appTextTheme.headline2,
+              ),
+              Text(
+                "subtext",
+                style: appTextTheme.bodyText1,
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

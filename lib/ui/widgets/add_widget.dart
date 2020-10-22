@@ -5,6 +5,7 @@ import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 
 //TODO stateless csak proba miatt stateful
+//TODO lehet csak egy helyen lesz hasznalva
 class BottomAddWidget extends StatefulWidget {
   @override
   BottomAddWidgetState createState() => BottomAddWidgetState();

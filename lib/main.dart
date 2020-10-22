@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_garden/ui/bottom_nav.dart';
+import 'package:my_garden/ui/info_page.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'common/theme.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => AppBottomNavigationBar(),
+          '/info': (context) => InfoPage(),
 
           // '/home': (context) => HomePage(),
           // '/garden': (context) => GardenPage(),

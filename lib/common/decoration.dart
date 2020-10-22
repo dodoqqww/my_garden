@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_garden/common/theme.dart';
 
-Widget simpleAppBorder({@required Widget item, @required Color color}) =>
+Widget simpleAppBorder(
+        {@required Widget item, @required Color color, double padding = 8}) =>
     Container(
       decoration: BoxDecoration(
           border: Border(
@@ -12,7 +13,7 @@ Widget simpleAppBorder({@required Widget item, @required Color color}) =>
           ),
           borderRadius: BorderRadius.all(Radius.circular(5))),
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(padding),
         child: item,
       ),
     );
