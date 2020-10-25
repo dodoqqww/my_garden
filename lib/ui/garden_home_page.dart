@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'widgets/additem_widget.dart';
+import 'widgets/addnote_widget.dart';
 import 'widgets/listwithsearch_widget.dart';
 import 'widgets/note_widget.dart';
 import 'widgets/role_widget.dart';
@@ -12,21 +14,26 @@ class HomeGarden extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
-        RoleWidget(headlineText: "Kerti teendők"),
-        ListWithSearch(
-          title: "Növények",
-          resultWidget: _InfoWidget(),
-        )
-      ]),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          size: 32,
-        ),
-        onPressed: () => print("add teendő"),
-      ),
-    );
+        body:
+            ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
+          RoleWidget(headlineText: "Kerti teendők"),
+          ListWithSearch(
+            title: "Növények",
+            resultWidget: _InfoWidget(),
+          )
+        ]),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            size: 32,
+          ),
+          onPressed: () => showMaterialModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            expand: true,
+            context: context,
+            builder: (context, scrollController) => BottomAddItemWidget(),
+          ),
+        ));
   }
 }
 
@@ -53,7 +60,12 @@ class _InfoWidget extends StatelessWidget {
           Icons.add,
           size: 32,
         ),
-        onPressed: () => print("add note"),
+        onPressed: () => showMaterialModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          expand: true,
+          context: context,
+          builder: (context, scrollController) => BottomAddNoteWidget(),
+        ),
       ),
     );
   }
@@ -104,7 +116,7 @@ class _InfoWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Adatok:",
+                    "Leírás:",
                     style: appTextTheme.headline2,
                   ),
                   Spacer(),
@@ -112,37 +124,43 @@ class _InfoWidget extends StatelessWidget {
                     icon: Icon(
                       Icons.edit,
                     ),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => showMaterialModalBottomSheet(
+                      backgroundColor: Colors.transparent,
+                      expand: true,
+                      context: context,
+                      builder: (context, scrollController) =>
+                          BottomAddItemWidget(),
+                    ),
                   )
                 ],
               ),
-              ListView(
-                padding: const EdgeInsets.only(top: 10),
-                shrinkWrap: true,
-                children: [
-                  simpleAppBorder(
-                      color: Colors.greenAccent,
-                      item: Text("Ültetve: ",
-                          // textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xFF000000)))),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  simpleAppBorder(
-                      color: Colors.greenAccent,
-                      item: Text("Utoljára öntözve: ",
-                          // textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xFF000000)))),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  simpleAppBorder(
-                      color: Colors.greenAccent,
-                      item: Text("Elhelyezkedés: ",
-                          // textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xFF000000)))),
-                ],
-              )
+              //  ListView(
+              //    padding: const EdgeInsets.only(top: 10),
+              //    shrinkWrap: true,
+              //    children: [
+              //      simpleAppBorder(
+              //          color: Colors.greenAccent,
+              //          item: Text("Ültetve: ",
+              //              // textAlign: TextAlign.center,
+              //              style: TextStyle(color: Color(0xFF000000)))),
+              //      SizedBox(
+              //        height: 10,
+              //      ),
+              //      simpleAppBorder(
+              //          color: Colors.greenAccent,
+              //          item: Text("Utoljára öntözve: ",
+              //              // textAlign: TextAlign.center,
+              //              style: TextStyle(color: Color(0xFF000000)))),
+              //      SizedBox(
+              //        height: 10,
+              //      ),
+              //      simpleAppBorder(
+              //          color: Colors.greenAccent,
+              //          item: Text("Elhelyezkedés: ",
+              //              // textAlign: TextAlign.center,
+              //              style: TextStyle(color: Color(0xFF000000)))),
+              //    ],
+              //  )
             ],
           ),
         ));
