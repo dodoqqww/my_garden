@@ -6,12 +6,12 @@ import 'package:my_garden/common/theme.dart';
 
 //TODO stateless csak proba miatt stateful
 //TODO lehet csak egy helyen lesz hasznalva
-class BottomAddWidget extends StatefulWidget {
+class BottomAddTodoWidget extends StatefulWidget {
   @override
-  BottomAddWidgetState createState() => BottomAddWidgetState();
+  BottomAddTodoWidgetState createState() => BottomAddTodoWidgetState();
 }
 
-class BottomAddWidgetState extends State<BottomAddWidget> {
+class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
   DateTime selectedDate = DateTime.now();
 
   bool isOften = false;
@@ -57,7 +57,7 @@ class BottomAddWidgetState extends State<BottomAddWidget> {
                 ],
               ),
               simpleAppBorder(
-                color: Colors.greenAccent,
+                color: Theme.of(context).dividerColor,
                 item: Row(
                   children: <Widget>[
                     Text(selectedDate.toString(),
@@ -77,7 +77,7 @@ class BottomAddWidgetState extends State<BottomAddWidget> {
                 height: 10,
               ),
               simpleAppBorder(
-                color: Colors.greenAccent,
+                color: Theme.of(context).dividerColor,
                 item: Column(children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -105,7 +105,8 @@ class BottomAddWidgetState extends State<BottomAddWidget> {
                         cursorColor: Colors.black,
                         controller: _dayController,
                         decoration: simpleTextFieldDecoration(
-                            color: Colors.greenAccent, text: "Gyakoriság(nap)"),
+                            color: Theme.of(context).dividerColor,
+                            text: "Gyakoriság(nap)"),
                       ),
                     ),
                   )
@@ -121,7 +122,8 @@ class BottomAddWidgetState extends State<BottomAddWidget> {
                     cursorColor: Colors.black,
                     controller: _nameController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Elnevezés"),
+                        color: Theme.of(context).dividerColor,
+                        text: "Elnevezés"),
                   ),
                   SizedBox(
                     height: 10,
@@ -131,13 +133,13 @@ class BottomAddWidgetState extends State<BottomAddWidget> {
                     maxLines: 10,
                     controller: _descController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Leírás"),
+                        color: Theme.of(context).dividerColor, text: "Leírás"),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   simpleAppBorder(
-                      color: Colors.greenAccent,
+                      color: Theme.of(context).dividerColor,
                       item: Row(
                         children: <Widget>[
                           Text("Kép hozzáadása",

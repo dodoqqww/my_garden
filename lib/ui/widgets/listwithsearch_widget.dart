@@ -6,17 +6,16 @@ import 'package:my_garden/ui/widgets/search_widget.dart';
 
 class ListWithSearch extends StatelessWidget {
   final String title;
-  final Widget resultWidget;
+  final String data;
 
-  const ListWithSearch({Key key, this.title, this.resultWidget})
-      : super(key: key);
+  const ListWithSearch({Key key, this.title, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     print("build somewhere/listWithSearch");
     return Card(
       elevation: 20,
-      color: Colors.green,
+      color: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -53,20 +52,20 @@ class ListWithSearch extends StatelessWidget {
   Widget _itemWidget(String text, BuildContext context) {
     return InkWell(
       onTap: () => Navigator.pushNamed(context, "/info",
-          arguments: InfoPageArguments(bodyWidget: resultWidget)),
+          arguments: InfoPageArguments(data: data)),
       child: Card(
         elevation: 5,
-        color: Colors.green[600],
+        color: Theme.of(context).primaryColorDark,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             simpleAppBorder(
                 padding: 2,
-                color: Colors.greenAccent,
+                color: Theme.of(context).dividerColor,
                 item: Container(
                   height: 80,
                   width: 80,
-                  color: Colors.green,
+                  color: Theme.of(context).primaryColor,
                   child: Center(child: Text("N/A")),
                 )),
             Padding(

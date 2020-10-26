@@ -59,7 +59,8 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                     cursorColor: Colors.black,
                     controller: _nameController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Elnevezés"),
+                        color: Theme.of(context).dividerColor,
+                        text: "Elnevezés"),
                   ),
                   SizedBox(
                     height: 10,
@@ -68,7 +69,7 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                     cursorColor: Colors.black,
                     controller: _subNameController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Alnév"),
+                        color: Theme.of(context).dividerColor, text: "Alnév"),
                   ),
                   SizedBox(
                     height: 10,
@@ -78,13 +79,14 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                     maxLines: 10,
                     controller: _descController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Rövid leírás"),
+                        color: Theme.of(context).dividerColor,
+                        text: "Rövid leírás"),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   simpleAppBorder(
-                      color: Colors.greenAccent,
+                      color: Theme.of(context).accentColor,
                       item: Row(
                         children: <Widget>[
                           Text("Kép hozzáadása",

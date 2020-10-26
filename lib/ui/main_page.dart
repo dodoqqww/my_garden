@@ -1,9 +1,7 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:my_garden/common/theme.dart';
-import 'widgets/add_widget.dart';
-import 'widgets/info_widget.dart';
+import 'widgets/addtodo_widget.dart';
 import 'widgets/role_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +22,7 @@ class HomePage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             expand: true,
             context: context,
-            builder: (context, scrollController) => BottomAddWidget(),
+            builder: (context, scrollController) => BottomAddTodoWidget(),
           ),
         ),
       ),

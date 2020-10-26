@@ -23,7 +23,7 @@ class FarmerGarden extends StatelessWidget {
           ),
         ),
         // ListWithSearch(title: "Állatok"),
-        ListWithSearch(title: "Földek", resultWidget: _InfoWidget())
+        ListWithSearch(title: "Földek", data: "farm")
       ]),
       floatingActionButton: FloatingActionButton(
         child: Icon(
@@ -32,15 +32,6 @@ class FarmerGarden extends StatelessWidget {
         ),
         onPressed: () => print("add teendő"),
       ),
-    );
-  }
-}
-
-class _InfoWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text("Info3"),
     );
   }
 }

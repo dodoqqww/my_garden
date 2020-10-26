@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 final appTheme = ThemeData(
+    appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.black)),
     brightness: Brightness.light,
-    primarySwatch: Colors.green,
-    accentColor: Colors.greenAccent);
+    primaryColor: Colors.green,
+    primaryColorDark: Colors.green[600],
+    dividerColor: Colors.greenAccent,
+    accentColor: Colors.blueAccent);
 
 final TextTheme appTextTheme = TextTheme(
   headline1: TextStyle(

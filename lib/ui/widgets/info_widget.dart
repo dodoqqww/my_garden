@@ -11,6 +11,7 @@ class BottomInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("build infowidget");
     return appBottomHeader(
       color: Theme.of(context).primaryColor,
       content: ListView(
@@ -50,7 +51,7 @@ class BottomInfoWidget extends StatelessWidget {
                 ],
               ),
               simpleAppBorder(
-                  color: Colors.greenAccent,
+                  color: Theme.of(context).dividerColor,
                   item: Text("2020.10.10",
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),
@@ -58,7 +59,7 @@ class BottomInfoWidget extends StatelessWidget {
                 height: 10,
               ),
               simpleAppBorder(
-                  color: Colors.greenAccent,
+                  color: Theme.of(context).dividerColor,
                   item: Text("Teendő ismétlése",
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),
@@ -66,7 +67,7 @@ class BottomInfoWidget extends StatelessWidget {
                 height: 10,
               ),
               simpleAppBorder(
-                  color: Colors.greenAccent,
+                  color: Theme.of(context).dividerColor,
                   item: Text("Leírás",
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),

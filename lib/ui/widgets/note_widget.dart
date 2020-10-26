@@ -53,7 +53,7 @@ class BottomNoteWidget extends StatelessWidget {
                 ],
               ),
               simpleAppBorder(
-                  color: Colors.greenAccent,
+                  color: Theme.of(context).dividerColor,
                   item: Text("2020.10.10",
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),
@@ -61,7 +61,7 @@ class BottomNoteWidget extends StatelessWidget {
                 height: 10,
               ),
               simpleAppBorder(
-                  color: Colors.greenAccent,
+                  color: Theme.of(context).dividerColor,
                   item: Text(note,
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),

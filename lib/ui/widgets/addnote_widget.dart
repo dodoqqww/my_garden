@@ -17,7 +17,7 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
 
   final TextEditingController _nameController = TextEditingController();
 
-  final TextEditingController _dayController = TextEditingController();
+  //final TextEditingController _dayController = TextEditingController();
 
   final TextEditingController _descController = TextEditingController();
 
@@ -60,13 +60,14 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                     cursorColor: Colors.black,
                     controller: _nameController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Elnevezés"),
+                        color: Theme.of(context).dividerColor,
+                        text: "Elnevezés"),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   simpleAppBorder(
-                    color: Colors.greenAccent,
+                    color: Theme.of(context).dividerColor,
                     item: Row(
                       children: <Widget>[
                         Text(selectedDate.toString(),
@@ -90,13 +91,13 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                     maxLines: 10, //TODO több sor de uhgyanekkora méret
                     controller: _descController,
                     decoration: simpleTextFieldDecoration(
-                        color: Colors.greenAccent, text: "Leírás"),
+                        color: Theme.of(context).dividerColor, text: "Leírás"),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   simpleAppBorder(
-                      color: Colors.greenAccent,
+                      color: Theme.of(context).dividerColor,
                       item: Row(
                         children: <Widget>[
                           Text("Kép hozzáadása",
