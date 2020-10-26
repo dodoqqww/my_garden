@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive/hive.dart';
 import 'package:my_garden/ui/bottom_nav.dart';
 import 'package:my_garden/ui/info_page.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'common/theme.dart';
 import 'generated/l10n.dart';
-import 'models/catalog.dart';
+import 'hive_helper/register_adapters.dart';
 import 'states/bottom_nav_state.dart';
+import 'storage/database_helper.dart';
 
 void main() {
+  registerAdapters();
   runApp(MyApp());
+}
+
+Future _initHive() async {
+  var dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
 }
 
 class MyApp extends StatelessWidget {
@@ -27,23 +36,14 @@ class MyApp extends StatelessWidget {
       providers: [
         // In this sample app, CatalogModel never changes, so a simple Provider
         // is sufficient.
-        Provider(create: (context) => CatalogModel()),
+
+        // Provider(create: (context) => CatalogModel()),
+
+        ChangeNotifierProvider(create: (context) => DatabaseData()),
 
         ChangeNotifierProvider<AppBottomNavigationBarProvider>(
             child: AppBottomNavigationBar(),
             create: (BuildContext context) => AppBottomNavigationBarProvider()),
-
-        // CartModel is implemented as a ChangeNotifier, which calls for the use
-        // of ChangeNotifierProvider. Moreover, CartModel depends
-        // on CatalogModel, so a ProxyProvider is needed.
-
-        //  ChangeNotifierProxyProvider<CatalogModel, CartModel>(
-        //    create: (context) => CartModel(),
-        //    update: (context, catalog, cart) {
-        //      cart.catalog = catalog;
-        //      return cart;
-        //    },
-        //  ),
       ],
       child: MaterialApp(
         // scale
@@ -69,12 +69,28 @@ class MyApp extends StatelessWidget {
         //routes
         initialRoute: '/',
         routes: {
-          '/': (context) => AppBottomNavigationBar(),
-          '/info': (context) => InfoPage(),
+          '/': (context) => FutureBuilder(
+                future: _initHive(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.error != null) {
+                      print(snapshot.error);
+                      return Scaffold(
+                        body: Center(
+                          child: Text('Error initializing hive data store.'),
+                        ),
+                      );
+                    } else {
+                      return AppBottomNavigationBar();
+                    }
+                  } else {
+                    return Scaffold();
+                  }
+                },
+              ),
 
-          // '/home': (context) => HomePage(),
-          // '/garden': (context) => GardenPage(),
-          // '/settings': (context) => SettingsPage(),
+          //(context) => AppBottomNavigationBar(),
+          '/info': (context) => InfoPage(),
         },
       ),
     );
