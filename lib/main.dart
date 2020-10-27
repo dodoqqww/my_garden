@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
+import 'package:my_garden/states/todo_states.dart';
 import 'package:my_garden/ui/bottom_nav.dart';
 import 'package:my_garden/ui/info_page.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,7 +12,7 @@ import 'common/theme.dart';
 import 'generated/l10n.dart';
 import 'hive_helper/register_adapters.dart';
 import 'states/bottom_nav_state.dart';
-import 'storage/database_helper.dart';
+import 'states/database_helper.dart';
 
 void main() {
   registerAdapters();
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         // Provider(create: (context) => CatalogModel()),
 
         ChangeNotifierProvider(create: (context) => DatabaseData()),
+        ChangeNotifierProvider(create: (context) => TodoProvider()),
 
         ChangeNotifierProvider<AppBottomNavigationBarProvider>(
             child: AppBottomNavigationBar(),

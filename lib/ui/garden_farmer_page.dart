@@ -7,7 +7,9 @@ class FarmerGarden extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
-        RoleWidget(headlineText: "Mezőgazdasági teendők"),
+        //  RoleWidget(
+        //    headlineText: "Mezőgazdasági teendők",
+        //  ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(

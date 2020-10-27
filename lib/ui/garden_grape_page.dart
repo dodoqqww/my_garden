@@ -7,7 +7,7 @@ class GrapeGarden extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
-        RoleWidget(headlineText: "Szőlő gazdász teendők"),
+        // RoleWidget(headlineText: "Szőlő gazdász teendők"),
         ListWithSearch(title: "Szőlők", data: "grape")
       ]),
       floatingActionButton: FloatingActionButton(

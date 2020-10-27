@@ -1,41 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notification_model.dart';
+part of 'todo_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class NotificationModelAdapter extends TypeAdapter<NotificationModel> {
+class TodoModelAdapter extends TypeAdapter<TodoModel> {
   @override
-  final int typeId = 5;
+  final int typeId = 1;
 
   @override
-  NotificationModel read(BinaryReader reader) {
+  TodoModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return NotificationModel(
+    return TodoModel(
       title: fields[0] as String,
+      subTitle: fields[3] as String,
       message: fields[1] as String,
       date: fields[2] as String,
-      isEnable: fields[3] as bool,
     );
   }
 
   @override
-  void write(BinaryWriter writer, NotificationModel obj) {
+  void write(BinaryWriter writer, TodoModel obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
+      ..writeByte(3)
+      ..write(obj.subTitle)
       ..writeByte(1)
       ..write(obj.message)
       ..writeByte(2)
-      ..write(obj.date)
-      ..writeByte(3)
-      ..write(obj.isEnable);
+      ..write(obj.date);
   }
 
   @override
@@ -44,7 +44,7 @@ class NotificationModelAdapter extends TypeAdapter<NotificationModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NotificationModelAdapter &&
+      other is TodoModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

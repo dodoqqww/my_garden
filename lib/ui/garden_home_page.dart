@@ -10,7 +10,8 @@ class HomeGarden extends StatelessWidget {
     return Scaffold(
         body:
             ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
-          RoleWidget(headlineText: "Kerti teendők"),
+          /// TODO kell??
+          // RoleWidget(headlineText: "Kerti teendők", todoList: []),
           ListWithSearch(
             title: "Növények",
             data: "home",

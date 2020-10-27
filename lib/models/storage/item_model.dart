@@ -2,9 +2,8 @@ import 'package:hive/hive.dart';
 import 'package:my_garden/hive_helper/hive_types.dart';
 import 'package:my_garden/hive_helper/hive_adapters.dart';
 import 'package:my_garden/hive_helper/fields/item_fields.dart';
-
-import 'note_model.dart';
-import 'notification_model.dart';
+import 'package:my_garden/models/note_model.dart';
+import 'package:my_garden/models/notification_model.dart';
 
 part 'item_model.g.dart';
 
@@ -12,12 +11,16 @@ part 'item_model.g.dart';
 class Item extends HiveObject {
   @HiveField(ItemFields.name)
   final String name;
+
   @HiveField(ItemFields.subName)
   final String subName;
+
   @HiveField(ItemFields.description)
   final String description;
+
   @HiveField(ItemFields.notes)
   final List<NoteModel> notes;
+
   @HiveField(ItemFields.notifications)
   final List<NotificationModel> notifications;
   Item({

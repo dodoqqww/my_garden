@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/models/storage/todo_model.dart';
+import 'package:my_garden/states/todo_states.dart';
+
+import 'package:provider/provider.dart';
 
 //TODO stateless csak proba miatt stateful
 //TODO lehet csak egy helyen lesz hasznalva
@@ -52,7 +56,17 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.done_outline),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => {
+                      //TODO test
+
+                      context.read<TodoProvider>().addTodo(TodoModel(
+                            title: "ez egy todo",
+                            subTitle: "simple",
+                            message: "dsa",
+                            date: "2020.10.27",
+                          )),
+                      Navigator.of(context).pop()
+                    },
                   ),
                 ],
               ),
