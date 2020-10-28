@@ -35,14 +35,19 @@ class RoleWidget extends StatelessWidget {
                       "$headlineText:",
                       style: appTextTheme.headline2,
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, top: 10),
-                        child: snapshot.data.length == 0
-                            ? Text(
-                                "Nincs teendő a mai napra.",
+                    snapshot.data.length == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Center(
+                              child: Text(
+                                emptyText,
                                 style: appTextTheme.bodyText1,
-                              )
-                            : ListView.builder(
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 8.0, top: 10),
+                            child: ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: snapshot.data.length,

@@ -1,6 +1,5 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/states/todo_states.dart';
 import 'package:my_garden/utils/dateformats.dart';
@@ -65,6 +64,7 @@ class _MissedRolesWidget extends StatelessWidget {
       headlineText: "Elmaradt teendők",
       emptyText: "Nincs elmaradt teendőd.",
       //TODO ne buildeljen feleslegesen?
+      //TODO futureprovider??
       future: context.watch<TodoProvider>().getTodosBeforeToday(),
     );
   }
