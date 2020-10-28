@@ -65,14 +65,14 @@ class BottomInfoWidget extends StatelessWidget {
                 height: 10,
               ),
               //TODO test kell?
-              simpleAppBorder(
-                  color: Theme.of(context).dividerColor,
-                  item: Text("Teendő ismétlése",
-                      // textAlign: TextAlign.center,
-                      style: TextStyle(color: Color(0xFF000000)))),
-              SizedBox(
-                height: 10,
-              ),
+              //  simpleAppBorder(
+              //      color: Theme.of(context).dividerColor,
+              //      item: Text("Teendő ismétlése",
+              //          // textAlign: TextAlign.center,
+              //          style: TextStyle(color: Color(0xFF000000)))),
+              //  SizedBox(
+              //    height: 10,
+              //  ),
               simpleAppBorder(
                   color: Theme.of(context).dividerColor,
                   item: Text("${data.message}",

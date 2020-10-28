@@ -1,7 +1,9 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/states/todo_states.dart';
+import 'package:my_garden/utils/dateformats.dart';
 import 'widgets/addtodo_widget.dart';
 import 'widgets/role_widget.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +51,8 @@ class _AllRolesWidget extends StatelessWidget {
     print("build home/allrole");
     return RoleWidget(
       headlineText: "Minden teendő",
-      future: context.watch<TodoProvider>().getTodosByDate("2020.10.27"),
+      emptyText: "Nincs teendő a mai napra.",
+      future: context.watch<TodoProvider>().getTodosCurrentDate(),
     );
   }
 }
@@ -60,7 +63,9 @@ class _MissedRolesWidget extends StatelessWidget {
     print("build home/missedrole");
     return RoleWidget(
       headlineText: "Elmaradt teendők",
-      future: null,
+      emptyText: "Nincs elmaradt teendőd.",
+      //TODO ne buildeljen feleslegesen?
+      future: context.watch<TodoProvider>().getTodosBeforeToday(),
     );
   }
 }
@@ -74,7 +79,6 @@ class _HeaderContent extends StatelessWidget {
   Widget build(BuildContext context) {
     print("build home/header");
     DatePickerController _controller = DatePickerController();
-    //DateTime _selectedValue = DateTime.now();
     return Container(
       padding: EdgeInsets.all(10),
       child: DatePicker(
@@ -86,16 +90,8 @@ class _HeaderContent extends StatelessWidget {
         selectionColor: Theme.of(context).primaryColor,
         selectedTextColor: Colors.white,
         locale: "hu_HU",
-        // inactiveDates: [
-        //   DateTime.now().add(Duration(days: 3)),
-        //   DateTime.now().add(Duration(days: 4)),
-        //   DateTime.now().add(Duration(days: 7))
-        // ],
         onDateChange: (date) {
-          // New date selected
-          // setState(() {
-          //   _selectedValue = date;
-          // });
+          context.read<TodoProvider>().currentDate = dateToString(date);
         },
       ),
     );

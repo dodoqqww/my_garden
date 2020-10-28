@@ -6,10 +6,14 @@ import 'package:my_garden/ui/widgets/info_widget.dart';
 
 class RoleWidget extends StatelessWidget {
   final String headlineText;
+  final String emptyText;
   final Future<dynamic> future;
 
   const RoleWidget(
-      {Key key, @required this.headlineText, @required this.future})
+      {Key key,
+      @required this.headlineText,
+      @required this.emptyText,
+      @required this.future})
       : super(key: key);
 
   @override
@@ -17,7 +21,8 @@ class RoleWidget extends StatelessWidget {
     return FutureBuilder<List<TodoModel>>(
         future: future,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
             return Card(
               elevation: 20,
               color: Colors.green,
@@ -31,7 +36,7 @@ class RoleWidget extends StatelessWidget {
                       style: appTextTheme.headline2,
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: const EdgeInsets.only(left: 8.0, top: 10),
                         child: snapshot.data.length == 0
                             ? Text(
                                 "Nincs teendő a mai napra.",
@@ -64,8 +69,14 @@ class RoleWidget extends StatelessWidget {
                 "$headlineText:",
                 style: appTextTheme.headline2,
               ),
-              Center(
-                child: CircularProgressIndicator(),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Center(
+                  child: Text(
+                    emptyText,
+                    style: appTextTheme.bodyText1,
+                  ),
+                ),
               )
             ])));
   }

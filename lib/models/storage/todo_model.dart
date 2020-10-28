@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
-import 'package:my_garden/hive_helper/fields/todo_model_fields.dart';
-import 'package:my_garden/hive_helper/hive_adapters.dart';
 import 'package:my_garden/hive_helper/hive_types.dart';
+import 'package:my_garden/hive_helper/hive_adapters.dart';
+import 'package:my_garden/hive_helper/fields/todo_model_fields.dart';
 
 part 'todo_model.g.dart';
 
@@ -20,24 +20,13 @@ class TodoModel extends HiveObject {
   @HiveField(TodoModelFields.date)
   final String date;
 
-  TodoModel({this.title, this.subTitle, this.message, this.date});
+  @HiveField(TodoModelFields.isDone)
+  final bool isDone;
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is TodoModel &&
-        o.title == title &&
-        o.subTitle == subTitle &&
-        o.message == message &&
-        o.date == date;
-  }
-
-  @override
-  int get hashCode {
-    return title.hashCode ^
-        subTitle.hashCode ^
-        message.hashCode ^
-        date.hashCode;
-  }
+  TodoModel(
+      {@required this.title,
+      @required this.subTitle,
+      @required this.message,
+      @required this.date,
+      @required this.isDone});
 }

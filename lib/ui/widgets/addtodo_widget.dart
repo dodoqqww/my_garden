@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 import 'package:my_garden/models/storage/todo_model.dart';
 import 'package:my_garden/states/todo_states.dart';
+import 'package:my_garden/utils/dateformats.dart';
 
 import 'package:provider/provider.dart';
 
@@ -57,14 +59,13 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
                   IconButton(
                     icon: Icon(Icons.done_outline),
                     onPressed: () => {
-                      //TODO test
-
                       context.read<TodoProvider>().addTodo(TodoModel(
-                            title: "ez egy todo",
-                            subTitle: "simple",
-                            message: "dsa",
-                            date: "2020.10.27",
-                          )),
+                          title: _nameController.text,
+                          //TODO kibővít
+                          subTitle: "Todo.simple",
+                          message: _descController.text,
+                          date: dateToString(selectedDate),
+                          isDone: false)),
                       Navigator.of(context).pop()
                     },
                   ),
@@ -74,7 +75,7 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
                 color: Theme.of(context).dividerColor,
                 item: Row(
                   children: <Widget>[
-                    Text(selectedDate.toString(),
+                    Text(DateFormat('yyyy.MM.dd').format(selectedDate),
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Color(0xFF000000))),
                     Spacer(),
@@ -90,45 +91,45 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
               SizedBox(
                 height: 10,
               ),
-              simpleAppBorder(
-                color: Theme.of(context).dividerColor,
-                item: Column(children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text("Teendő ismétlése",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xFF000000))),
-                      Spacer(),
-                      Switch(
-                        value: isOften,
-                        onChanged: (value) {
-                          setState(() {
-                            isOften = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Visibility(
-                    visible: isOften,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        textAlign: TextAlign.right,
-                        keyboardType: TextInputType.number,
-                        cursorColor: Colors.black,
-                        controller: _dayController,
-                        decoration: simpleTextFieldDecoration(
-                            color: Theme.of(context).dividerColor,
-                            text: "Gyakoriság(nap)"),
-                      ),
-                    ),
-                  )
-                ]),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              //    simpleAppBorder(
+              //      color: Theme.of(context).dividerColor,
+              //      item: Column(children: <Widget>[
+              //        Row(
+              //          children: <Widget>[
+              //            Text("Teendő ismétlése",
+              //                textAlign: TextAlign.center,
+              //                style: TextStyle(color: Color(0xFF000000))),
+              //            Spacer(),
+              //            Switch(
+              //              value: isOften,
+              //              onChanged: (value) {
+              //                setState(() {
+              //                  isOften = value;
+              //                });
+              //              },
+              //            ),
+              //          ],
+              //        ),
+              //        Visibility(
+              //          visible: isOften,
+              //          child: Padding(
+              //            padding: const EdgeInsets.all(8.0),
+              //            child: TextField(
+              //              textAlign: TextAlign.right,
+              //              keyboardType: TextInputType.number,
+              //              cursorColor: Colors.black,
+              //              controller: _dayController,
+              //              decoration: simpleTextFieldDecoration(
+              //                  color: Theme.of(context).dividerColor,
+              //                  text: "Gyakoriság(nap)"),
+              //            ),
+              //          ),
+              //        )
+              //      ]),
+              //    ),
+              //    SizedBox(
+              //      height: 10,
+              //    ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -149,48 +150,48 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
                     decoration: simpleTextFieldDecoration(
                         color: Theme.of(context).dividerColor, text: "Leírás"),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  simpleAppBorder(
-                      color: Theme.of(context).dividerColor,
-                      item: Row(
-                        children: <Widget>[
-                          Text("Kép hozzáadása",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Color(0xFF000000))),
-                          Spacer(),
-                          IconButton(
-                            icon: Icon(Icons.camera),
-                            onPressed: () {
-                              getImage(ImageSource.camera);
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.image),
-                            onPressed: () {
-                              getImage(ImageSource.gallery);
-                            },
-                          ),
-                        ],
-                      )),
-                  GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3),
-                      itemCount: images.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(images[index]),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            onTap: () => print("image"),
-                          ))
+                  //   SizedBox(
+                  //     height: 10,
+                  //   ),
+                  //   simpleAppBorder(
+                  //       color: Theme.of(context).dividerColor,
+                  //       item: Row(
+                  //         children: <Widget>[
+                  //           Text("Kép hozzáadása",
+                  //               textAlign: TextAlign.center,
+                  //               style: TextStyle(color: Color(0xFF000000))),
+                  //           Spacer(),
+                  //           IconButton(
+                  //             icon: Icon(Icons.camera),
+                  //             onPressed: () {
+                  //               getImage(ImageSource.camera);
+                  //             },
+                  //           ),
+                  //           IconButton(
+                  //             icon: Icon(Icons.image),
+                  //             onPressed: () {
+                  //               getImage(ImageSource.gallery);
+                  //             },
+                  //           ),
+                  //         ],
+                  //       )),
+                  //   GridView.builder(
+                  //       physics: NeverScrollableScrollPhysics(),
+                  //       shrinkWrap: true,
+                  //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  //           crossAxisCount: 3),
+                  //       itemCount: images.length,
+                  //       itemBuilder: (context, index) => GestureDetector(
+                  //             child: Container(
+                  //               decoration: BoxDecoration(
+                  //                 image: DecorationImage(
+                  //                   image: FileImage(images[index]),
+                  //                   fit: BoxFit.cover,
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             onTap: () => print("image"),
+                  //           ))
                 ],
               )
             ],
@@ -200,27 +201,27 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
     );
   }
 
-  Future getImage(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: source);
-
-    if (pickedFile != null) {
-      setState(() {
-        File image = File(pickedFile.path);
-        images.add((image));
-        print(pickedFile.path);
-      });
-    } else {
-      print('No image selected.');
-    }
-  }
+//  Future getImage(ImageSource source) async {
+//    final picker = ImagePicker();
+//    final pickedFile = await picker.getImage(source: source);
+//
+//    if (pickedFile != null) {
+//      setState(() {
+//        File image = File(pickedFile.path);
+//        images.add((image));
+//        print(pickedFile.path);
+//      });
+//    } else {
+//      print('No image selected.');
+//    }
+//  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime d = await showDatePicker(
       currentDate: selectedDate,
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2022),
     );
     if (d != null) {

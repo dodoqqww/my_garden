@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:my_garden/hive_helper/hive_types.dart';
 import 'package:my_garden/hive_helper/hive_adapters.dart';
@@ -24,10 +25,10 @@ class Item extends HiveObject {
   @HiveField(ItemFields.notifications)
   final List<NotificationModel> notifications;
   Item({
-    this.name,
-    this.subName,
-    this.description,
-    this.notes,
-    this.notifications,
+    @required this.name,
+    @required this.subName,
+    @required this.description,
+    @required this.notes,
+    @required this.notifications,
   });
 }

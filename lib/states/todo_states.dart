@@ -1,14 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:my_garden/utils/dateformats.dart';
 import '../models/storage/todo_model.dart';
 
 class TodoProvider extends ChangeNotifier {
   // Name our hive box for this data
   String _todosBox = "todos";
 
-  var _currentDate = DateTime.now();
-
   List<TodoModel> todosList = List();
+
+  String _currentDate = dateToString(DateTime.now());
+
+  String get currentDate => _currentDate;
+
+  set currentDate(String newDate) {
+    _currentDate = newDate;
+    print("new date: $newDate");
+    notifyListeners();
+  }
 
   void getTodos() async {
     var box = await Hive.openBox<TodoModel>(_todosBox);
@@ -26,10 +35,23 @@ class TodoProvider extends ChangeNotifier {
   }
 
   /// Get Todo by date TODO talán
-  Future<List<TodoModel>> getTodosByDate(String date) async {
+  Future<List<TodoModel>> getTodosCurrentDate() async {
+    print("search date: $_currentDate");
     var box = await Hive.openBox<TodoModel>(_todosBox);
     todosList = box.values.toList();
-    return todosList.where((element) => element.date == date).toList();
+    return todosList.where((element) => element.date == _currentDate).toList();
+  }
+
+  Future<List<TodoModel>> getTodosBeforeToday() async {
+    var asd = dateToString(DateTime.now());
+    print("today: ${asd}");
+    var box = await Hive.openBox<TodoModel>(_todosBox);
+    var allTodo = box.values.toList();
+
+    return allTodo
+        .where(
+            (element) => stringToDate(element.date).isBefore(stringToDate(asd)))
+        .toList();
   }
 
   /// Contact Count
