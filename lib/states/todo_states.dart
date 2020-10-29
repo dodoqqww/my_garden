@@ -47,13 +47,16 @@ class TodoProvider extends ChangeNotifier {
   }
 
   //TODO test
-  Future<List<TodoModel>> getTodosBeforeToday() async {
-    var asd = dateToString(DateTime.now());
-    print("today: ${asd}");
+  //todos unDone and before today
+  Future<List<TodoModel>> getMissedTodos() async {
+    print("today: ${dateToString(DateTime.now())}");
     var box = await Hive.openBox<TodoModel>(_todosBox);
     _todos.clearLoadAll(box.values.toList());
 
-    return _todos.getTodosBeforeDate(dateToString(DateTime.now()));
+    var beforeToday = _todos.getTodosBeforeDate(dateToString(DateTime.now()));
+    var unDone = _todos.getUnDoneTodos();
+
+    return unDone.where((element) => beforeToday.contains(element)).toList();
   }
 
   /// Add Todo
@@ -66,8 +69,7 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-//
-  /// Delete Contact
+  /// Delete Todo
   void deleteTodo(key) async {
     var box = await Hive.openBox<TodoModel>(_todosBox);
 
@@ -80,9 +82,9 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Edit Contact
+  /// Edit Todo
   /// Overwrites our existing contact based on key with a brand new updated Contact object
-  void editTodo({TodoModel todo, int contactKey}) async {
+  void editTodo(TodoModel todo, int contactKey) async {
     var box = await Hive.openBox<TodoModel>(_todosBox);
 
     // Add a contact to our box
@@ -93,7 +95,6 @@ class TodoProvider extends ChangeNotifier {
 
     print('editted: ' + todo.title);
 
-    // Update UI
     notifyListeners();
   }
 }

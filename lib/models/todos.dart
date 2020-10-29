@@ -20,10 +20,14 @@ class Todos {
     return _todosList.where((element) => element.date == date).toList();
   }
 
-  Future<List<TodoModel>> getTodosBeforeDate(String date) async {
+  List<TodoModel> getTodosBeforeDate(String date) {
     return _todosList
         .where((element) =>
             stringToDate(element.date).isBefore(stringToDate(date)))
         .toList();
+  }
+
+  List<TodoModel> getUnDoneTodos() {
+    return _todosList.where((element) => element.isDone != true).toList();
   }
 }

@@ -21,7 +21,7 @@ class TodoModel extends HiveObject {
   final String date;
 
   @HiveField(TodoModelFields.isDone)
-  final bool isDone;
+  bool isDone;
 
   TodoModel(
       {@required this.title,

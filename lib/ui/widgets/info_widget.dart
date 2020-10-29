@@ -51,9 +51,14 @@ class BottomInfoWidget extends StatelessWidget {
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.done_outline),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+                      icon: Icon(Icons.done_outline),
+                      onPressed: () => {
+                            Navigator.of(context).pop(),
+                            data.isDone = true,
+                            context
+                                .read<TodoProvider>()
+                                .editTodo(data, data.key)
+                          }),
                 ],
               ),
               simpleAppBorder(

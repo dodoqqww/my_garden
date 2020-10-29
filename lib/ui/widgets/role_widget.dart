@@ -101,17 +101,23 @@ class RoleWidget extends StatelessWidget {
         color: Colors.green[600],
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Text(
-                data.title,
-                style: appTextTheme.headline2,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.title,
+                    style: appTextTheme.headline2,
+                  ),
+                  Text(
+                    data.subTitle,
+                    style: appTextTheme.bodyText1,
+                  ),
+                ],
               ),
-              Text(
-                data.subTitle,
-                style: appTextTheme.bodyText1,
-              ),
+              Spacer(),
+              Icon(data.isDone ? Icons.done : Icons.close)
             ],
           ),
         ),

@@ -49,7 +49,7 @@ class _AllRolesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     print("build home/allrole");
     return RoleWidget(
-      headlineText: "Minden teendő",
+      headlineText: "Napi teendők",
       emptyText: "Nincs teendő a mai napra.",
       future: context.watch<TodoProvider>().getTodosCurrentDate(),
     );
@@ -65,7 +65,7 @@ class _MissedRolesWidget extends StatelessWidget {
       emptyText: "Nincs elmaradt teendőd.",
       //TODO ne buildeljen feleslegesen?
       //TODO futureprovider??
-      future: context.watch<TodoProvider>().getTodosBeforeToday(),
+      future: context.watch<TodoProvider>().getMissedTodos(),
     );
   }
 }
