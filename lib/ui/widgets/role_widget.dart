@@ -106,9 +106,14 @@ class RoleWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    data.title,
-                    style: appTextTheme.headline2,
+                  //TODO ez igy a legjobb?
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      data.title,
+                      style: appTextTheme.headline2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Text(
                     data.subTitle,

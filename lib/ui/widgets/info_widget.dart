@@ -33,16 +33,12 @@ class BottomInfoWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  //  IconButton(
+                  //    icon: Icon(Icons.edit),
+                  //    onPressed: () => Navigator.of(context).pop(),
+                  //  ),
                   IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  Text(
-                    "${data.title}",
-                    style: appTextTheme.headline1,
-                  ),
-                  Spacer(),
-                  IconButton(
+                    tooltip: "delete",
                     icon: Icon(Icons.delete),
                     onPressed: () => {
                       Navigator.of(context).pop(),
@@ -50,21 +46,37 @@ class BottomInfoWidget extends StatelessWidget {
                       context.read<TodoProvider>().deleteTodo(data.key)
                     },
                   ),
-                  IconButton(
-                      icon: Icon(Icons.done_outline),
-                      onPressed: () => {
-                            Navigator.of(context).pop(),
-                            data.isDone = true,
-                            context
-                                .read<TodoProvider>()
-                                .editTodo(data, data.key)
-                          }),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: SizedBox(
+                        width: 200,
+                        child: Text(
+                          "${data.title}",
+                          style: appTextTheme.headline1,
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                  ),
+                  Spacer(),
+
+                  Visibility(
+                    visible: !data.isDone,
+                    child: IconButton(
+                        tooltip: "done",
+                        icon: Icon(Icons.done_outline),
+                        onPressed: () => {
+                              Navigator.of(context).pop(),
+                              data.isDone = true,
+                              context
+                                  .read<TodoProvider>()
+                                  .editTodo(data, data.key)
+                            }),
+                  ),
                 ],
               ),
               simpleAppBorder(
                   color: Theme.of(context).dividerColor,
                   item: Text("${data.date}",
-                      // textAlign: TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),
               SizedBox(
                 height: 10,

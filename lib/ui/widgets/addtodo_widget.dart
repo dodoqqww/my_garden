@@ -57,7 +57,7 @@ class BottomAddTodoWidgetState extends State<BottomAddTodoWidget> {
                   ),
                   Spacer(),
                   IconButton(
-                    icon: Icon(Icons.done_outline),
+                    icon: Icon(Icons.save),
                     onPressed: () => {
                       context.read<TodoProvider>().addTodo(TodoModel(
                           title: _nameController.text,
