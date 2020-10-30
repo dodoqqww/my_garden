@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/items_states.dart';
+import 'package:provider/provider.dart';
 
 //TODO stateless csak proba miatt stateful
 //TODO lehet csak egy helyen lesz hasznalva
 class BottomAddItemWidget extends StatefulWidget {
+  final ItemsType type;
+
+  BottomAddItemWidget(this.type);
+
   @override
   BottomAddItemWidgetState createState() => BottomAddItemWidgetState();
 }
@@ -48,7 +55,17 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.done_outline),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => {
+                      Navigator.of(context).pop(),
+                      context.read<ItemsProvider>().addItem(
+                          Item(
+                              name: "asd",
+                              subName: "dsa",
+                              description: "asdasd",
+                              notes: [],
+                              notifications: []),
+                          widget.type)
+                    },
                   ),
                 ],
               ),

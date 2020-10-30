@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/states/items_states.dart';
 
 import 'widgets/additem_widget.dart';
 import 'widgets/addnote_widget.dart';
@@ -110,7 +111,8 @@ class InfoPage extends StatelessWidget {
                       expand: true,
                       context: context,
                       builder: (context, scrollController) =>
-                          BottomAddItemWidget(),
+                          //TODO csak ideiglenes
+                          BottomAddItemWidget(ItemsType.Plants),
                     ),
                   )
                 ],

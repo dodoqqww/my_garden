@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_garden/states/items_states.dart';
 import 'widgets/listwithsearch_widget.dart';
 import 'widgets/role_widget.dart';
+import 'package:provider/provider.dart';
 
 class FarmerGarden extends StatelessWidget {
   @override
@@ -25,7 +27,10 @@ class FarmerGarden extends StatelessWidget {
           ),
         ),
         // ListWithSearch(title: "Állatok"),
-        ListWithSearch(title: "Földek", data: "farm")
+        ListWithSearch(
+          title: "Földek",
+          type: ItemsType.Soils,
+        )
       ]),
       floatingActionButton: FloatingActionButton(
         child: Icon(

@@ -22,21 +22,21 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getTodos() async {
-    var box = await Hive.openBox<TodoModel>(_todosBox);
-// print(_todos.length);
-
-    //read
-    _todos.clearLoadAll(box.values.toList());
-
-    // print(_todos.length);
-    // notifyListeners();
-  }
+//  void getTodos() async {
+//    var box = await Hive.openBox<TodoModel>(_todosBox);
+//// print(_todos.length);
+//
+//    //read
+//    _todos.clearLoadAll(box.values.toList());
+//
+//    // print(_todos.length);
+//    // notifyListeners();
+//  }
 
   /// Get Todo
-  TodoModel getTodo(index) {
-    return _todos.getItemByIndex(index);
-  }
+//  TodoModel getTodo(index) {
+//    return _todos.getItemByIndex(index);
+//  }
 
   /// Get Todo by date TODO talán
   Future<List<TodoModel>> getTodosCurrentDate() async {

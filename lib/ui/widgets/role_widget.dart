@@ -18,6 +18,7 @@ class RoleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO futureprovider?
     return FutureBuilder<List<TodoModel>>(
         future: future,
         builder: (context, snapshot) {
@@ -122,7 +123,8 @@ class RoleWidget extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              Icon(data.isDone ? Icons.done : Icons.close)
+              Icon(
+                  data.isDone ? Icons.check_box : Icons.check_box_outline_blank)
             ],
           ),
         ),

@@ -13,9 +13,11 @@ import 'generated/l10n.dart';
 import 'hive_helper/register_adapters.dart';
 import 'states/bottom_nav_state.dart';
 import 'states/database_helper.dart';
+import 'states/items_states.dart';
 
 void main() {
   registerAdapters();
+  TodoProvider();
   runApp(MyApp());
 }
 
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
 
         ChangeNotifierProvider(create: (context) => DatabaseData()),
         ChangeNotifierProvider(create: (context) => TodoProvider()),
+        ChangeNotifierProvider(create: (context) => ItemsProvider()),
 
         ChangeNotifierProvider<AppBottomNavigationBarProvider>(
             child: AppBottomNavigationBar(),

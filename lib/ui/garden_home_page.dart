@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/items_states.dart';
 import 'widgets/additem_widget.dart';
 import 'widgets/listwithsearch_widget.dart';
+import 'package:provider/provider.dart';
 import 'widgets/role_widget.dart';
 
 class HomeGarden extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // context.read<ItemsProvider>().getCurrentItems(type: ItemsType.Plants);
     return Scaffold(
         body:
             ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
@@ -14,8 +18,8 @@ class HomeGarden extends StatelessWidget {
           // RoleWidget(headlineText: "Kerti teendők", todoList: []),
           ListWithSearch(
             title: "Növények",
-            data: "home",
-          )
+            type: ItemsType.Plants,
+          ),
         ]),
         floatingActionButton: FloatingActionButton(
           child: Icon(
@@ -26,7 +30,8 @@ class HomeGarden extends StatelessWidget {
             backgroundColor: Colors.transparent,
             expand: true,
             context: context,
-            builder: (context, scrollController) => BottomAddItemWidget(),
+            builder: (context, scrollController) =>
+                BottomAddItemWidget(ItemsType.Plants),
           ),
         ));
   }
