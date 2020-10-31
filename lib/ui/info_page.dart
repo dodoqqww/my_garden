@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/models/storage/item_model.dart';
 import 'package:my_garden/states/items_states.dart';
 
 import 'widgets/additem_widget.dart';
@@ -11,7 +12,7 @@ import 'widgets/addnote_widget.dart';
 import 'widgets/note_widget.dart';
 
 class InfoPageArguments {
-  final String data;
+  final Item data;
   InfoPageArguments({this.data});
 }
 
@@ -19,10 +20,11 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final InfoPageArguments args = ModalRoute.of(context).settings.arguments;
+    Item data = args.data;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          args.data,
+          args.data.name,
           style: appTextTheme.headline1,
         ),
       ),
@@ -30,8 +32,8 @@ class InfoPage extends StatelessWidget {
         padding: EdgeInsets.all(10),
         shrinkWrap: true,
         children: [
-          _headerCard(context),
-          _dataCard(context),
+          _headerCard(context, data),
+          _dataCard(context, data),
           _descCard(context),
           _imagesCard(context, []),
           _settingsCard(context)
@@ -52,7 +54,7 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  Widget _headerCard(BuildContext context) {
+  Widget _headerCard(BuildContext context, Item data) {
     return Card(
       elevation: 5,
       color: Theme.of(context).primaryColor,
@@ -66,7 +68,18 @@ class InfoPage extends StatelessWidget {
                 height: 80,
                 width: 80,
                 color: Theme.of(context).primaryColor,
-                child: Center(child: Text("N/A")),
+                child: data.mainImagePath == null
+                    ? Center(child: Text("N/A"))
+                    : Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: FileImage(File(data.mainImagePath)),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
               )),
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -74,10 +87,10 @@ class InfoPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Title",
+                  data.name,
                   style: appTextTheme.headline1,
                 ),
-                Text("Subtitle"),
+                Text(data.subName),
               ],
             ),
           ),
@@ -86,7 +99,7 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  Widget _dataCard(BuildContext context) {
+  Widget _dataCard(BuildContext context, Item data) {
     return Card(
         elevation: 5,
         color: Theme.of(context).primaryColor,
@@ -117,6 +130,7 @@ class InfoPage extends StatelessWidget {
                   )
                 ],
               ),
+              Text(data.description)
             ],
           ),
         ));

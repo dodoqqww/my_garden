@@ -45,8 +45,11 @@ dependencies:
 
   modal_bottom_sheet: ^0.2.2
   image_picker: ^0.6.7+12
-  #hive
+
   path_provider: ^1.5.1
+  path: ^1.7.0
+
+  #hive
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
@@ -45,7 +47,9 @@ class _SearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     print("build somewhere/listWithSearch/search");
 
-    return Column(
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       children: [
         Container(
           margin: EdgeInsets.only(top: 10),
@@ -103,8 +107,9 @@ class ListWidget extends StatelessWidget {
             return Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: snapshot.data.isEmpty
-                    ? Center(child: Text("Nincsenek mentett elemek."))
+                    ? Center(child: Text("Üres"))
                     : ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) =>
@@ -115,9 +120,10 @@ class ListWidget extends StatelessWidget {
   }
 
   Widget _itemWidget(Item data, BuildContext context) {
+    // print(data.mainImagePath);
     return InkWell(
       onTap: () => Navigator.pushNamed(context, "/info",
-          arguments: InfoPageArguments(data: "name")),
+          arguments: InfoPageArguments(data: data)),
       child: Card(
         elevation: 5,
         color: Theme.of(context).primaryColorDark,
@@ -125,14 +131,26 @@ class ListWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             simpleAppBorder(
-                padding: 2,
-                color: Theme.of(context).dividerColor,
-                item: Container(
-                  height: 80,
-                  width: 80,
-                  color: Theme.of(context).primaryColor,
-                  child: Center(child: Text("N/A")),
-                )),
+              padding: 2,
+              color: Theme.of(context).dividerColor,
+              item: Container(
+                height: 80,
+                width: 80,
+                color: Theme.of(context).primaryColor,
+                child: data.mainImagePath == null
+                    ? Center(child: Text("N/A"))
+                    : Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: FileImage(File(data.mainImagePath)),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(

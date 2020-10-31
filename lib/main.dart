@@ -17,7 +17,6 @@ import 'states/items_states.dart';
 
 void main() {
   registerAdapters();
-  TodoProvider();
   runApp(MyApp());
 }
 

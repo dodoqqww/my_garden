@@ -1,10 +1,14 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 import 'package:my_garden/models/storage/item_model.dart';
 import 'package:my_garden/states/items_states.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 //TODO stateless csak proba miatt stateful
@@ -19,7 +23,8 @@ class BottomAddItemWidget extends StatefulWidget {
 }
 
 class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
-  final List<File> images = List();
+  String imagePath;
+  File image;
 
   final TextEditingController _nameController = TextEditingController();
 
@@ -55,16 +60,26 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.done_outline),
-                    onPressed: () => {
-                      Navigator.of(context).pop(),
+                    onPressed: () async {
+                      Navigator.of(context).pop();
+                      final appDir = await getApplicationDocumentsDirectory();
+
+                      final fileName = basename(image.path);
+
+                      final savedImage =
+                          await image.copy('${appDir.path}/$fileName');
+
+                      print(savedImage.path);
+
                       context.read<ItemsProvider>().addItem(
                           Item(
-                              name: "asd",
-                              subName: "dsa",
-                              description: "asdasd",
+                              name: _nameController.text,
+                              subName: _subNameController.text,
+                              description: _descController.text,
+                              mainImagePath: imagePath,
                               notes: [],
                               notifications: []),
-                          widget.type)
+                          widget.type);
                     },
                   ),
                 ],
@@ -103,12 +118,35 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                     height: 10,
                   ),
                   simpleAppBorder(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).dividerColor,
                       item: Row(
                         children: <Widget>[
-                          Text("Kép hozzáadása",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Color(0xFF000000))),
+                          image != null
+                              ? Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(File(imagePath)),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                )
+                              : simpleAppBorder(
+                                  padding: 2,
+                                  color: Theme.of(context).dividerColor,
+                                  item: Container(
+                                    height: 80,
+                                    width: 80,
+                                    color: Theme.of(context).primaryColor,
+                                    child: Center(child: Text("N/A")),
+                                  )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text("Kép hozzáadása",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Color(0xFF000000))),
+                          ),
                           Spacer(),
                           IconButton(
                             icon: Icon(Icons.camera),
@@ -124,23 +162,6 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                           ),
                         ],
                       )),
-                  GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3),
-                      itemCount: images.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(images[index]),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            onTap: () => print("image"),
-                          ))
                 ],
               )
             ],
@@ -155,10 +176,10 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
     final pickedFile = await picker.getImage(source: source);
 
     if (pickedFile != null) {
+      image = File(pickedFile.path);
+
       setState(() {
-        File image = File(pickedFile.path);
-        images.add((image));
-        print(pickedFile.path);
+        imagePath = pickedFile.path;
       });
     } else {
       print('No image selected.');

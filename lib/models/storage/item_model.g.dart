@@ -20,6 +20,7 @@ class ItemAdapter extends TypeAdapter<Item> {
       name: fields[0] as String,
       subName: fields[1] as String,
       description: fields[2] as String,
+      mainImagePath: fields[5] as String,
       notes: (fields[3] as List)?.cast<NoteModel>(),
       notifications: (fields[4] as List)?.cast<NotificationModel>(),
     );
@@ -28,13 +29,15 @@ class ItemAdapter extends TypeAdapter<Item> {
   @override
   void write(BinaryWriter writer, Item obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.subName)
       ..writeByte(2)
       ..write(obj.description)
+      ..writeByte(5)
+      ..write(obj.mainImagePath)
       ..writeByte(3)
       ..write(obj.notes)
       ..writeByte(4)

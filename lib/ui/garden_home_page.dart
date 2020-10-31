@@ -10,7 +10,6 @@ import 'widgets/role_widget.dart';
 class HomeGarden extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // context.read<ItemsProvider>().getCurrentItems(type: ItemsType.Plants);
     return Scaffold(
         body:
             ListView(padding: EdgeInsets.all(10), shrinkWrap: true, children: [
