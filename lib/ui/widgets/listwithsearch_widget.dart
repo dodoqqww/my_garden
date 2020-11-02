@@ -122,8 +122,10 @@ class ListWidget extends StatelessWidget {
   Widget _itemWidget(Item data, BuildContext context) {
     // print(data.mainImagePath);
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, "/info",
-          arguments: InfoPageArguments(data: data)),
+      onTap: () => {
+        context.read<ItemsProvider>().setSelectedItem(data),
+        Navigator.pushNamed(context, "/info"),
+      },
       child: Card(
         elevation: 5,
         color: Theme.of(context).primaryColorDark,

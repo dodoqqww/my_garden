@@ -1,12 +1,23 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/models/storage/note_model.dart';
+import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/items_states.dart';
+import 'package:provider/provider.dart';
 
 //TODO stateless csak proba miatt stateful
 //TODO lehet csak egy helyen lesz hasznalva
 class BottomAddNoteWidget extends StatefulWidget {
+  final Item data;
+  final int dataKey;
+
+  const BottomAddNoteWidget({Key key, this.data, this.dataKey})
+      : super(key: key);
+
   @override
   BottomAddNoteWidgetState createState() => BottomAddNoteWidgetState();
 }
@@ -23,6 +34,7 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("hsoz: " + widget.data.notes.length.toString());
     return appBottomHeader(
       color: Theme.of(context).primaryColor,
       content: ListView(
@@ -48,9 +60,22 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                   ),
                   Spacer(),
                   IconButton(
-                    icon: Icon(Icons.done_outline),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+                      icon: Icon(Icons.done_outline),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+
+                        Item newData = widget.data.copyWith();
+
+                        newData.notes.add(NoteModel(
+                            title: _nameController.text,
+                            date: DateFormat('yyyy.MM.dd').format(selectedDate),
+                            message: _descController.text,
+                            images: []));
+
+                        context
+                            .read<ItemsProvider>()
+                            .editItem(newData, widget.dataKey);
+                      }),
                 ],
               ),
               Column(
@@ -70,7 +95,7 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                     color: Theme.of(context).dividerColor,
                     item: Row(
                       children: <Widget>[
-                        Text(selectedDate.toString(),
+                        Text(DateFormat('yyyy.MM.dd').format(selectedDate),
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Color(0xFF000000))),
                         Spacer(),
@@ -126,6 +151,8 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                       itemCount: images.length,
                       itemBuilder: (context, index) => GestureDetector(
                             child: Container(
+                              width: 80,
+                              height: 80,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: FileImage(images[index]),

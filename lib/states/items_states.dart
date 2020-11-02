@@ -33,6 +33,15 @@ class ItemsProvider extends ChangeNotifier {
 
   String keyword = "";
 
+  ItemsType _currentType = ItemsType.Animals;
+
+  Item selectedItem;
+
+  setSelectedItem(Item newItem) {
+    selectedItem = newItem;
+    notifyListeners();
+  }
+
   setKeyword(String newKeyword) {
     keyword = newKeyword;
     notifyListeners();
@@ -40,6 +49,9 @@ class ItemsProvider extends ChangeNotifier {
 
   Future<List<Item>> getItems(ItemsType type) async {
     var box = await Hive.openBox<Item>(type.box);
+
+    _currentType = type;
+    print("current: $_currentType");
 
     switch (type) {
       case ItemsType.Plants:
@@ -85,5 +97,39 @@ class ItemsProvider extends ChangeNotifier {
         break;
     }
     notifyListeners();
+  }
+
+  void editItem(Item item, int contactKey) async {
+    var box = await Hive.openBox<Item>(_currentType.box);
+    print("current: $_currentType");
+    print("currentKey: $contactKey");
+    // Add a contact to our box
+    await box.put(contactKey, item);
+
+    selectedItem = item;
+
+    // Update _contacts List with all box values
+    switch (_currentType) {
+      case ItemsType.Plants:
+        _plants.clearLoadAll(box.values.toList());
+        break;
+      case ItemsType.Grapes:
+        _grapes.clearLoadAll(box.values.toList());
+        break;
+      case ItemsType.Soils:
+        _soils.clearLoadAll(box.values.toList());
+        break;
+      case ItemsType.Animals:
+        _animals.clearLoadAll(box.values.toList());
+        break;
+    }
+
+    //  print('editted: ' + todo.title);
+
+    notifyListeners();
+  }
+
+  int getItemNoteLength(Item item) {
+    return item.notes.length;
   }
 }

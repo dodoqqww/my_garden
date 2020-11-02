@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/models/storage/note_model.dart';
 
 // just ui , update after entities
 class BottomNoteWidget extends StatelessWidget {
-  final String note;
-  final List<File> images;
+  final NoteModel note;
 
-  const BottomNoteWidget({Key key, @required this.note, @required this.images})
-      : super(key: key);
+  const BottomNoteWidget({Key key, this.note}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class BottomNoteWidget extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    "X Jegyzet",
+                    note.title,
                     style: appTextTheme.headline1,
                   ),
                   Spacer(),
@@ -54,7 +53,7 @@ class BottomNoteWidget extends StatelessWidget {
               ),
               simpleAppBorder(
                   color: Theme.of(context).dividerColor,
-                  item: Text("2020.10.10",
+                  item: Text(note.date,
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),
               SizedBox(
@@ -62,29 +61,29 @@ class BottomNoteWidget extends StatelessWidget {
               ),
               simpleAppBorder(
                   color: Theme.of(context).dividerColor,
-                  item: Text(note,
+                  item: Text(note.message,
                       // textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFF000000)))),
               SizedBox(
                 height: 10,
               ),
-              GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3),
-                  itemCount: images.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: FileImage(images[index]),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        onTap: () => print("image"),
-                      ))
+              // GridView.builder(
+              //     physics: NeverScrollableScrollPhysics(),
+              //     shrinkWrap: true,
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //         crossAxisCount: 3),
+              //     itemCount: note.images.length,
+              //     itemBuilder: (context, index) => GestureDetector(
+              //           child: Container(
+              //             decoration: BoxDecoration(
+              //               image: DecorationImage(
+              //                 image: FileImage([]),
+              //                 fit: BoxFit.cover,
+              //               ),
+              //             ),
+              //           ),
+              //           onTap: () => print("image"),
+              //         ))
             ],
           )
         ],

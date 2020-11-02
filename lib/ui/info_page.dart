@@ -4,27 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
+import 'package:my_garden/models/storage/note_model.dart';
 import 'package:my_garden/models/storage/item_model.dart';
 import 'package:my_garden/states/items_states.dart';
 
 import 'widgets/additem_widget.dart';
 import 'widgets/addnote_widget.dart';
 import 'widgets/note_widget.dart';
+import 'package:provider/provider.dart';
 
-class InfoPageArguments {
-  final Item data;
-  InfoPageArguments({this.data});
-}
+//class InfoPageArguments {
+//  final Item data;
+//  InfoPageArguments({this.data});
+//}
 
 class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final InfoPageArguments args = ModalRoute.of(context).settings.arguments;
-    Item data = args.data;
+    print("build info");
+    // final InfoPageArguments args = ModalRoute.of(context).settings.arguments;
+    // Item data = args.data;
+    Item data = context.watch<ItemsProvider>().selectedItem;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          args.data.name,
+          data.name,
           style: appTextTheme.headline1,
         ),
       ),
@@ -34,7 +38,10 @@ class InfoPage extends StatelessWidget {
         children: [
           _headerCard(context, data),
           _dataCard(context, data),
-          _descCard(context),
+          DescCard(
+            context: context,
+            data: data,
+          ),
           _imagesCard(context, []),
           _settingsCard(context)
         ],
@@ -48,7 +55,10 @@ class InfoPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           expand: true,
           context: context,
-          builder: (context, scrollController) => BottomAddNoteWidget(),
+          builder: (context, scrollController) => BottomAddNoteWidget(
+            data: data,
+            dataKey: data.key,
+          ),
         ),
       ),
     );
@@ -136,58 +146,6 @@ class InfoPage extends StatelessWidget {
         ));
   }
 
-  Widget _descCard(BuildContext context) {
-    return Card(
-        elevation: 5,
-        color: Theme.of(context).primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Feljegyzések:",
-                style: appTextTheme.headline2,
-              ),
-              ListView(
-                padding: const EdgeInsets.only(top: 10),
-                shrinkWrap: true,
-                children: [
-                  InkWell(
-                    onTap: () => showMaterialModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      expand: true,
-                      context: context,
-                      builder: (context, scrollController) => BottomNoteWidget(
-                        note: "Ez egy note.",
-                        images: [],
-                      ),
-                    ),
-                    child: Card(
-                      elevation: 5,
-                      color: Theme.of(context).primaryColorDark,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Jégeső után",
-                              style: appTextTheme.headline2,
-                            ),
-                            Text("2020.10.10"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ));
-  }
-
   Widget _imagesCard(BuildContext context, List<File> images) {
     return Card(
         elevation: 5,
@@ -248,5 +206,79 @@ class InfoPage extends StatelessWidget {
             )
           ],
         ));
+  }
+}
+
+class DescCard extends StatelessWidget {
+  final Item data;
+
+  final BuildContext context;
+
+  const DescCard({Key key, @required this.data, @required this.context})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print("build info/desc");
+    return Card(
+        elevation: 5,
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Feljegyzések:",
+                style: appTextTheme.headline2,
+              ),
+              ListView.builder(
+                padding: const EdgeInsets.only(top: 10),
+                shrinkWrap: true,
+                itemCount:
+                    context.watch<ItemsProvider>().getItemNoteLength(data),
+                itemBuilder: (context, index) {
+                  return descItem(data.notes[index]);
+                },
+                // children: [
+                //   descItem(NoteModel(
+                //       date: "2020.12.10",
+                //       images: [],
+                //       message: "asdasdasdasdasd")),
+                // ],
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget descItem(NoteModel note) {
+    return InkWell(
+      onTap: () => showMaterialModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        expand: true,
+        context: context,
+        builder: (context, scrollController) => BottomNoteWidget(
+          note: note,
+        ),
+      ),
+      child: Card(
+        elevation: 5,
+        color: Theme.of(context).primaryColorDark,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                note.title,
+                style: appTextTheme.headline2,
+              ),
+              Text(note.date),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

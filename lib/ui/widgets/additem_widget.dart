@@ -62,14 +62,15 @@ class BottomAddItemWidgetState extends State<BottomAddItemWidget> {
                     icon: Icon(Icons.done_outline),
                     onPressed: () async {
                       Navigator.of(context).pop();
-                      final appDir = await getApplicationDocumentsDirectory();
 
-                      final fileName = basename(image.path);
+                      if (image != null) {
+                        final appDir = await getApplicationDocumentsDirectory();
+                        final fileName = basename(image.path);
+                        final savedImage =
+                            await image.copy('${appDir.path}/$fileName');
 
-                      final savedImage =
-                          await image.copy('${appDir.path}/$fileName');
-
-                      print(savedImage.path);
+                        print(savedImage.path);
+                      }
 
                       context.read<ItemsProvider>().addItem(
                           Item(
