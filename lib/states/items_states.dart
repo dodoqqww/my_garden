@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:my_garden/models/items.dart';
 import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/info_states.dart';
 
 // Name our hive box for this data
 enum ItemsType { Plants, Grapes, Soils, Animals }
@@ -26,11 +27,11 @@ extension ItemsTypeExtension on ItemsType {
 class ItemsProvider extends ChangeNotifier {
   Items _items = Items();
 
+  InfoProvider info;
+
   String keyword = "";
 
   ItemsType _currentType = ItemsType.Animals;
-
-  Item selectedItem;
 
   setKeyword(String newKeyword) {
     keyword = newKeyword;
@@ -41,7 +42,7 @@ class ItemsProvider extends ChangeNotifier {
     var box = await Hive.openBox<Item>(type.box);
 
     _currentType = type;
-    print("current: $_currentType");
+    // print("current: $_currentType");
 
     _items.clearLoadByType(box.values, type);
     return _items.getItemsByKeyword(keyword, type);
@@ -53,7 +54,7 @@ class ItemsProvider extends ChangeNotifier {
     // Add to our box
     await box.add(newItem);
 
-    print("ezvan most2: $type");
+    // print("ezvan most2: $type");
 
     _items.clearLoadByType(box.values, type);
     notifyListeners();
@@ -61,19 +62,15 @@ class ItemsProvider extends ChangeNotifier {
 
   void editItem(Item item, int contactKey) async {
     var box = await Hive.openBox<Item>(_currentType.box);
-    print("current: $_currentType");
-    print("currentKey: $contactKey");
 
     await box.put(contactKey, item);
 
-    selectedItem = item;
+    info.selectedItem = item;
+
+    info.setSelectedItem(item);
 
     _items.clearLoadByType(box.values, _currentType);
 
-    notifyListeners();
-  }
-
-  int getItemNoteLength(Item item) {
-    return item.notes.length;
+    // notifyListeners();
   }
 }

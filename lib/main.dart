@@ -13,7 +13,6 @@ import 'common/theme.dart';
 import 'generated/l10n.dart';
 import 'hive_helper/register_adapters.dart';
 import 'states/bottom_nav_state.dart';
-import 'states/database_helper.dart';
 import 'states/items_states.dart';
 
 void main() {
@@ -37,16 +36,18 @@ class MyApp extends StatelessWidget {
     // Using MultiProvider is convenient when providing multiple objects.
     return MultiProvider(
       providers: [
-        // In this sample app, CatalogModel never changes, so a simple Provider
-        // is sufficient.
-
-        // Provider(create: (context) => CatalogModel()),
-
-        ChangeNotifierProvider(create: (context) => DatabaseData()),
         ChangeNotifierProvider(create: (context) => TodoProvider()),
-        ChangeNotifierProvider(create: (context) => ItemsProvider()),
-        //Provider(create: (context) => ItemsProvider().selectedItem),
+
         ChangeNotifierProvider(create: (context) => InfoProvider()),
+
+        //info provider az itemsproviderben van azzal valtozik
+        ChangeNotifierProxyProvider<InfoProvider, ItemsProvider>(
+          create: (context) => ItemsProvider(),
+          update: (context, value, previous) {
+            previous.info = value;
+            return previous;
+          },
+        ),
 
         ChangeNotifierProvider<AppBottomNavigationBarProvider>(
             child: AppBottomNavigationBar(),

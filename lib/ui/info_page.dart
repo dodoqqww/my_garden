@@ -14,20 +14,11 @@ import 'widgets/addnote_widget.dart';
 import 'widgets/note_widget.dart';
 import 'package:provider/provider.dart';
 
-//class InfoPageArguments {
-//  final Item data;
-//  InfoPageArguments({this.data});
-//}
-
 class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("build info");
-    // final InfoPageArguments args = ModalRoute.of(context).settings.arguments;
-    // Item data = args.data;
-    Item data =
-        //  context.select<ItemsProvider, Item>((value) => value.selectedItem);
-        context.watch<ItemsProvider>().selectedItem;
+    Item data = context.watch<InfoProvider>().selectedItem;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -238,17 +229,10 @@ class DescCard extends StatelessWidget {
               ListView.builder(
                 padding: const EdgeInsets.only(top: 10),
                 shrinkWrap: true,
-                itemCount:
-                    context.watch<ItemsProvider>().getItemNoteLength(data),
+                itemCount: context.watch<InfoProvider>().getItemNoteLength(),
                 itemBuilder: (context, index) {
                   return descItem(data.notes[index]);
                 },
-                // children: [
-                //   descItem(NoteModel(
-                //       date: "2020.12.10",
-                //       images: [],
-                //       message: "asdasdasdasdasd")),
-                // ],
               )
             ],
           ),

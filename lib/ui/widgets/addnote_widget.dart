@@ -35,7 +35,7 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("hsoz: " + widget.data.notes.length.toString());
+    // print("hsoz: " + widget.data.notes.length.toString());
     return appBottomHeader(
       color: Theme.of(context).primaryColor,
       content: ListView(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_garden/states/database_helper.dart';
 import 'package:my_garden/states/bottom_nav_state.dart';
 import 'garden_page.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +17,8 @@ class AppBottomNavigationBar extends StatelessWidget {
     print("build bottom");
     var provider = Provider.of<AppBottomNavigationBarProvider>(context);
     //TODO test
-    var provider2 = Provider.of<DatabaseData>(context);
-    provider2.getTodos();
+    //var provider2 = Provider.of<DatabaseData>(context);
+    // provider2.getTodos();
     return Scaffold(
       body: currentTab[provider.currentIndex],
       bottomNavigationBar: BottomNavigationBar(

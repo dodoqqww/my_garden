@@ -124,7 +124,8 @@ class ListWidget extends StatelessWidget {
     // print(data.mainImagePath);
     return InkWell(
       onTap: () => {
-        Provider.of<ItemsProvider>(context, listen: false).selectedItem = data,
+        Provider.of<ItemsProvider>(context, listen: false).info.selectedItem =
+            data,
         // context.read<ItemsProvider>().selectedItem = data,
         Navigator.pushNamed(context, "/info"),
       },
