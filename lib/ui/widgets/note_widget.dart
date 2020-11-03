@@ -13,6 +13,7 @@ class BottomNoteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("build bottomNoteWidget");
     return appBottomHeader(
       color: Theme.of(context).primaryColor,
       content: ListView(

@@ -6,6 +6,7 @@ import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 import 'package:my_garden/models/storage/note_model.dart';
 import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/info_states.dart';
 import 'package:my_garden/states/items_states.dart';
 
 import 'widgets/additem_widget.dart';
@@ -24,7 +25,9 @@ class InfoPage extends StatelessWidget {
     print("build info");
     // final InfoPageArguments args = ModalRoute.of(context).settings.arguments;
     // Item data = args.data;
-    Item data = context.watch<ItemsProvider>().selectedItem;
+    Item data =
+        //  context.select<ItemsProvider, Item>((value) => value.selectedItem);
+        context.watch<ItemsProvider>().selectedItem;
     return Scaffold(
       appBar: AppBar(
         title: Text(

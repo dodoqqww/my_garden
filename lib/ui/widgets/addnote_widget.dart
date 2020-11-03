@@ -6,6 +6,7 @@ import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 import 'package:my_garden/models/storage/note_model.dart';
 import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/info_states.dart';
 import 'package:my_garden/states/items_states.dart';
 import 'package:provider/provider.dart';
 

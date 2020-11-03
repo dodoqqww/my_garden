@@ -24,23 +24,13 @@ extension ItemsTypeExtension on ItemsType {
 }
 
 class ItemsProvider extends ChangeNotifier {
-  //ItemsType _currentItemType = ItemsType.Plants;
-
-  Items _plants = Items(List());
-  Items _grapes = Items(List());
-  Items _soils = Items(List());
-  Items _animals = Items(List());
+  Items _items = Items();
 
   String keyword = "";
 
   ItemsType _currentType = ItemsType.Animals;
 
   Item selectedItem;
-
-  setSelectedItem(Item newItem) {
-    selectedItem = newItem;
-    notifyListeners();
-  }
 
   setKeyword(String newKeyword) {
     keyword = newKeyword;
@@ -53,25 +43,8 @@ class ItemsProvider extends ChangeNotifier {
     _currentType = type;
     print("current: $_currentType");
 
-    switch (type) {
-      case ItemsType.Plants:
-        _plants.clearLoadAll(box.values.toList());
-        return _plants.getItemsByKeyword(keyword);
-        break;
-      case ItemsType.Grapes:
-        _grapes.clearLoadAll(box.values.toList());
-        return _grapes.getItemsByKeyword(keyword);
-        break;
-      case ItemsType.Soils:
-        _soils.clearLoadAll(box.values.toList());
-        return _soils.getItemsByKeyword(keyword);
-        break;
-      case ItemsType.Animals:
-        _animals.clearLoadAll(box.values.toList());
-        return _animals.getItemsByKeyword(keyword);
-        break;
-    }
-    return null;
+    _items.clearLoadByType(box.values, type);
+    return _items.getItemsByKeyword(keyword, type);
   }
 
   /// Add Item
@@ -81,21 +54,8 @@ class ItemsProvider extends ChangeNotifier {
     await box.add(newItem);
 
     print("ezvan most2: $type");
-    // Update our provider state data with a hive read, and refresh the ui
-    switch (type) {
-      case ItemsType.Plants:
-        _plants.clearLoadAll(box.values.toList());
-        break;
-      case ItemsType.Grapes:
-        _grapes.clearLoadAll(box.values.toList());
-        break;
-      case ItemsType.Soils:
-        _soils.clearLoadAll(box.values.toList());
-        break;
-      case ItemsType.Animals:
-        _animals.clearLoadAll(box.values.toList());
-        break;
-    }
+
+    _items.clearLoadByType(box.values, type);
     notifyListeners();
   }
 
@@ -103,28 +63,12 @@ class ItemsProvider extends ChangeNotifier {
     var box = await Hive.openBox<Item>(_currentType.box);
     print("current: $_currentType");
     print("currentKey: $contactKey");
-    // Add a contact to our box
+
     await box.put(contactKey, item);
 
     selectedItem = item;
 
-    // Update _contacts List with all box values
-    switch (_currentType) {
-      case ItemsType.Plants:
-        _plants.clearLoadAll(box.values.toList());
-        break;
-      case ItemsType.Grapes:
-        _grapes.clearLoadAll(box.values.toList());
-        break;
-      case ItemsType.Soils:
-        _soils.clearLoadAll(box.values.toList());
-        break;
-      case ItemsType.Animals:
-        _animals.clearLoadAll(box.values.toList());
-        break;
-    }
-
-    //  print('editted: ' + todo.title);
+    _items.clearLoadByType(box.values, _currentType);
 
     notifyListeners();
   }

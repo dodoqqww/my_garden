@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
+import 'package:my_garden/states/info_states.dart';
 import 'package:my_garden/states/todo_states.dart';
 import 'package:my_garden/ui/bottom_nav.dart';
 import 'package:my_garden/ui/info_page.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DatabaseData()),
         ChangeNotifierProvider(create: (context) => TodoProvider()),
         ChangeNotifierProvider(create: (context) => ItemsProvider()),
+        //Provider(create: (context) => ItemsProvider().selectedItem),
+        ChangeNotifierProvider(create: (context) => InfoProvider()),
 
         ChangeNotifierProvider<AppBottomNavigationBarProvider>(
             child: AppBottomNavigationBar(),

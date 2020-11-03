@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_garden/common/decoration.dart';
 import 'package:my_garden/common/theme.dart';
 import 'package:my_garden/models/storage/item_model.dart';
+import 'package:my_garden/states/info_states.dart';
 import 'package:my_garden/states/items_states.dart';
 import 'package:my_garden/ui/info_page.dart';
 import 'package:provider/provider.dart';
@@ -123,7 +124,8 @@ class ListWidget extends StatelessWidget {
     // print(data.mainImagePath);
     return InkWell(
       onTap: () => {
-        context.read<ItemsProvider>().setSelectedItem(data),
+        Provider.of<ItemsProvider>(context, listen: false).selectedItem = data,
+        // context.read<ItemsProvider>().selectedItem = data,
         Navigator.pushNamed(context, "/info"),
       },
       child: Card(
