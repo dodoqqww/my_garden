@@ -15,4 +15,8 @@ class InfoProvider extends ChangeNotifier {
   int getItemNoteLength() {
     return selectedItem.notes.length;
   }
+
+  List<String> getAllImagePath() {
+    return selectedItem.getAllImageFromNotes();
+  }
 }

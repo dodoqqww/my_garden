@@ -55,4 +55,14 @@ class Item extends HiveObject {
       notifications: notifications ?? this.notifications,
     );
   }
+
+  List<String> getAllImageFromNotes() {
+    List<String> images = List();
+
+    for (final note in notes) {
+      images.addAll(note.images);
+    }
+
+    return images;
+  }
 }

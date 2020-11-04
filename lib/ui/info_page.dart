@@ -32,11 +32,11 @@ class InfoPage extends StatelessWidget {
         children: [
           _headerCard(context, data),
           _dataCard(context, data),
-          DescCard(
+          _DescCard(
             context: context,
             data: data,
           ),
-          _imagesCard(context, []),
+          _imagesCard(context, data.getAllImageFromNotes()),
           _settingsCard(context)
         ],
       ),
@@ -140,7 +140,7 @@ class InfoPage extends StatelessWidget {
         ));
   }
 
-  Widget _imagesCard(BuildContext context, List<File> images) {
+  Widget _imagesCard(BuildContext context, List<String> imagesPath) {
     return Card(
         elevation: 5,
         color: Theme.of(context).primaryColor,
@@ -155,21 +155,22 @@ class InfoPage extends StatelessWidget {
               ),
             ),
             GridView.builder(
+                padding: const EdgeInsets.all(8.0),
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3),
-                itemCount: images.length,
+                itemCount: imagesPath.length,
                 itemBuilder: (context, index) => GestureDetector(
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: FileImage(images[index]),
+                            image: FileImage(File(imagesPath[index])),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      onTap: () => print("image"),
+                      onTap: () => print("open image"),
                     )),
           ],
         ));
@@ -203,12 +204,12 @@ class InfoPage extends StatelessWidget {
   }
 }
 
-class DescCard extends StatelessWidget {
+class _DescCard extends StatelessWidget {
   final Item data;
 
   final BuildContext context;
 
-  const DescCard({Key key, @required this.data, @required this.context})
+  const _DescCard({Key key, @required this.data, @required this.context})
       : super(key: key);
 
   @override
@@ -227,6 +228,7 @@ class DescCard extends StatelessWidget {
                 style: appTextTheme.headline2,
               ),
               ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(top: 10),
                 shrinkWrap: true,
                 itemCount: context.watch<InfoProvider>().getItemNoteLength(),

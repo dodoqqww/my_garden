@@ -12,7 +12,6 @@ class NoteModel extends HiveObject {
   final String title;
   @HiveField(NoteModelFields.date)
   final String date;
-  //nem biztos h file
 
   @HiveField(NoteModelFields.images)
   final List<String> images;

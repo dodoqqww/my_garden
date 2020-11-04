@@ -68,23 +68,23 @@ class BottomNoteWidget extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              // GridView.builder(
-              //     physics: NeverScrollableScrollPhysics(),
-              //     shrinkWrap: true,
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //         crossAxisCount: 3),
-              //     itemCount: note.images.length,
-              //     itemBuilder: (context, index) => GestureDetector(
-              //           child: Container(
-              //             decoration: BoxDecoration(
-              //               image: DecorationImage(
-              //                 image: FileImage([]),
-              //                 fit: BoxFit.cover,
-              //               ),
-              //             ),
-              //           ),
-              //           onTap: () => print("image"),
-              //         ))
+              GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+                  itemCount: note.images.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: FileImage(File(note.images[index])),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        onTap: () => print("image"),
+                      ))
             ],
           )
         ],

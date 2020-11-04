@@ -8,6 +8,8 @@ import 'package:my_garden/models/storage/note_model.dart';
 import 'package:my_garden/models/storage/item_model.dart';
 import 'package:my_garden/states/info_states.dart';
 import 'package:my_garden/states/items_states.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 //TODO stateless csak proba miatt stateful
@@ -26,6 +28,7 @@ class BottomAddNoteWidget extends StatefulWidget {
 class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
   DateTime selectedDate = DateTime.now();
   final List<File> images = List();
+  List<String> imagesPath = List();
 
   final TextEditingController _nameController = TextEditingController();
 
@@ -62,16 +65,29 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                   Spacer(),
                   IconButton(
                       icon: Icon(Icons.done_outline),
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.of(context).pop();
 
                         Item newData = widget.data.copyWith();
+
+                        if (images.isNotEmpty) {
+                          final appDir =
+                              await getApplicationDocumentsDirectory();
+
+                          for (final image in images) {
+                            final fileName = basename(image.path);
+                            final savedImage =
+                                await image.copy('${appDir.path}/$fileName');
+                          }
+
+                          // print(savedImage.path);
+                        }
 
                         newData.notes.add(NoteModel(
                             title: _nameController.text,
                             date: DateFormat('yyyy.MM.dd').format(selectedDate),
                             message: _descController.text,
-                            images: []));
+                            images: imagesPath));
 
                         context
                             .read<ItemsProvider>()
@@ -161,7 +177,7 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
                                 ),
                               ),
                             ),
-                            onTap: () => print("image"),
+                            onTap: () => print("open image"),
                           ))
                 ],
               )
@@ -177,10 +193,10 @@ class BottomAddNoteWidgetState extends State<BottomAddNoteWidget> {
     final pickedFile = await picker.getImage(source: source);
 
     if (pickedFile != null) {
+      images.add(File(pickedFile.path));
+
       setState(() {
-        File image = File(pickedFile.path);
-        images.add((image));
-        print(pickedFile.path);
+        imagesPath.add(pickedFile.path);
       });
     } else {
       print('No image selected.');
